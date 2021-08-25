@@ -1,0 +1,20 @@
+# Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager.
+
+version: "3"
+services:
+  web:
+    image: justice-adminportal-extension-website-builder
+    command: bash -c "./scripts/env-guard.sh && yarn start"
+    volumes:
+      - ${PWD:-./}:/workspace/justice-adminportal-extension-website
+    working_dir: /workspace/justice-adminportal-extension-website
+    environment:
+      - NODE_ENV=development
+      - JUSTICE_BASE_URL=${JUSTICE_BASE_URL}
+      - JUSTICE_BASE_PATH=${JUSTICE_BASE_PATH}
+      - JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE=${JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE}
+      - SHELL=/bin/bash
+    ports:
+      - "3003:3000"

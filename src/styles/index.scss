@@ -1,0 +1,17 @@
+/*!
+ * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * This is licensed software from AccelByte Inc, for limitations
+ * and restrictions contact your company contract manager.
+ */
+
+@import "~bootstrap/scss/bootstrap";
+@import "variables";
+
+html, body {
+  font-family: $font-family-primary;
+  background-color: $base-10;
+}
+
+body, #root {
+  height: 100vh;
+}

@@ -1,0 +1,77 @@
+# Copyright (c) 2020-2021 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager
+
+{{- if .Values.canary.enabled }}
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace | default "dev" | quote }}
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Chart.Name }}
+  progressDeadlineSeconds: {{ .Values.canary.progressDeadlineSeconds | default 600 }}
+  autoscalerRef:
+    apiVersion: autoscaling/v2beta2
+    kind: HorizontalPodAutoscaler
+    name: {{ .Chart.Name }}
+  service:
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.service.containerPort | default 8080 }}
+    gateways:
+      - {{ .Values.canary.gatewayName | default "justice-gateway" | quote }}
+      - mesh
+    hosts:
+      - {{ .Values.justice.domain }}
+    match:
+      - uri:
+          prefix: {{ .Values.justice.path | default "/admin-extension" | quote }}
+  skipAnalysis: false
+  analysis:
+    interval: 1m
+    threshold: {{- if .Values.canary.flaggerAutomationTest.enabled }} {{ .Values.canary.flaggerAutomationTest.failureThreshold }} {{ else }} {{ .Values.canary.analysisFailureThreshold }} {{ end }}
+    {{- if and (.Values.canary.flaggerAutomationTest.enabled) (.Values.canary.webhookEnabled) }}
+    iterations: 1
+    {{- else }}
+    maxWeight: {{ .Values.canary.analysisMaxWeight | default 50 }}
+    stepWeight: {{ .Values.canary.analysisStepWeight | default 25 }}
+    {{- end }}
+    {{- if or (not .Values.canary.flaggerAutomationTest.enabled) (not .Values.canary.webhookEnabled) }}
+    metrics:
+    - interval: {{ .Values.canary.requestSuccessRateInterval }}
+      name: request-success-rate
+      thresholdRange:
+        min: {{ .Values.canary.requestSuccessRateThreshold }}
+    - interval: {{ .Values.canary.requestSuccessRateInterval }}
+      name: latency
+      templateRef:
+        name: latency
+        namespace: istio-system
+      thresholdRange:
+        max: {{ .Values.canary.latencyThreshold }}
+    {{- end }}
+    {{- if .Values.canary.webhookEnabled }}
+    webhooks:
+      {{- if .Values.canary.flaggerAutomationTest.enabled }}
+      - name: "Functional Test"
+        type: pre-rollout
+        url: http://flagger-automation-tester.{{ .Values.namespace | default "dev" }}/
+        timeout: {{ .Values.canary.flaggerAutomationTest.webhookTimeout }}
+        metadata:
+          type: bash
+          cmd: "automation-test.sh -r {{ .Chart.Name }} -s {{ .Values.canary.flaggerAutomationTest.k8sSecrets }} 
+            -e {{ .Values.canary.flaggerAutomationTest.webhookServiceBasePath }} 
+            -c {{ .Values.canary.flaggerAutomationTest.k8sConfigmap }} -n {{ .Values.namespace | default "dev" }} 
+            -u {{ .Values.canary.flaggerAutomationTest.serviceCanaryEndpoint }}.{{ .Values.namespace | default "dev" }} &>> /var/working_dir/{{ .Chart.Name }}-log.txt"
+      {{- else }}
+      - name: load-test
+        timeout: 5s
+        url: http://flagger-loadtester.{{ .Values.namespace | default "dev" }}/
+        metadata:
+          cmd: "hey -z 1m -q 400 -c 8 http://{{ .Chart.Name }}.{{ .Values.namespace | default "dev" }}:{{ .Values.service.port }}{{ .Values.healthCheck.readiness.path | default "/healthz" }}"
+      {{- end }}
+    {{- end }}
+{{- end }}

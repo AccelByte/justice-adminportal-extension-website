@@ -1,0 +1,7 @@
+{
+  "error.general.title": "Oops...",
+  "error.general.subtitle": "Looks like something went wrong.\n Please reload the page or contact System Administrator.",
+  "module.example.title": "Example Module",
+  "module.example.submodule.example-1-submodule.title": "Example Submodule",
+  "module.example.submodule.example-2-submodule.title": "Another Submodule"
+}

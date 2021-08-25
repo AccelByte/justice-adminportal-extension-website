@@ -1,0 +1,19 @@
+# Copyright (c) 2019 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager.
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: <SERVICE_NAME>
+  namespace: <K8S_NS>
+spec:
+  type: NodePort
+  selector:
+    app: <SERVICE_NAME>
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP

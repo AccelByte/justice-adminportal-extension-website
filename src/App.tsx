@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/*
+ * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * This is licensed software from AccelByte Inc, for limitations
+ * and restrictions contact your company contract manager.
+ */
+
+import React from "react";
+import { Router } from "react-router-dom";
+import { AppRoutes } from "./routes/AppRoutes";
+import { history } from "./utils/history";
+import { AppProvider } from "./app-states/AppProvider/AppProvider";
+import "./styles/index.scss";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history}>
+      <AppProvider>
+        <AppRoutes />
+      </AppProvider>
+    </Router>
   );
 }
 

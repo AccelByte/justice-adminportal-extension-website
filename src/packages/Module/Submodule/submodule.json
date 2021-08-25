@@ -1,0 +1,9 @@
+{
+  "id": "example-1-submodule",
+  "title": "module.example.submodule.example-1-submodule.title",
+  "link": "/namespace/{namespace}/example-1-submodule",
+  "permission": {
+    "resource": "ADMIN:NAMESPACE:{namespace}:USER:*",
+    "action": 2
+  }
+}

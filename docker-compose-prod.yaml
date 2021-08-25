@@ -1,0 +1,15 @@
+# Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager.
+
+version: "3"
+services:
+  web:
+    image: justice-adminportal-extension-website:unknown
+    environment:
+      - NODE_ENV=production
+      - JUSTICE_BASE_URL=${JUSTICE_BASE_URL}
+      - JUSTICE_BASE_PATH=${JUSTICE_BASE_PATH}
+      - SHELL=/bin/bash
+    ports:
+      - "8080:8080"

@@ -1,0 +1,23 @@
+/*!
+ * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * This is licensed software from AccelByte Inc, for limitations
+ * and restrictions contact your company contract manager.
+ */
+
+@import "src/styles/variables";
+
+.errorPageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: $font-size-h4;
+  .title {
+    color: $color--text--primary;
+    margin-bottom: 16px;
+  }
+  .subTitle {
+    color: $color--text--secondary;
+  }
+}

@@ -1,0 +1,20 @@
+# Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager.
+
+FROM nginx:1.19-alpine
+
+COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY build /srv/html
+COPY build/admin-extension/index.html /srv/html
+COPY docker-entrypoint.sh scripts/env-guard.sh scripts/string-env-replacer ./
+RUN apk add --upgrade --no-cache \
+  bash dos2unix libgcc musl gcompat libc6-compat musl-utils nghttp2 \
+  && for file in $(ls ./*.sh); do cp $file $file.tmp;  tr -d '\r' < $file.tmp > $file; done \
+  && chmod +x docker-entrypoint.sh \
+  && chmod +x env-guard.sh \
+  && chmod +x string-env-replacer
+
+EXPOSE 8080
+
+CMD ["./docker-entrypoint.sh"]

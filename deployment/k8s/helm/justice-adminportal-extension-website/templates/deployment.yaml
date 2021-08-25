@@ -1,0 +1,142 @@
+# Copyright (c) 2020-2021 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace | default "dev" | quote }}
+  labels:
+    app: {{ .Values.app }}
+    component: {{ .Values.component }}
+    stage: {{ .Values.stage | default "dev" | quote }}
+    tier: {{ .Values.tier }}
+  {{- if and (eq .Values.cluster.provider "kops") (eq .Values.cluster.resourceAccess "kiam") }}
+  annotations:
+    iam.amazonaws.com/role: {{ .Values.cluster.iam.role.arn }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app }}
+      component: {{ .Values.component }}
+      stage: {{ .Values.stage | default "dev" | quote }}
+      tier: {{ .Values.tier }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app }}
+        component: {{ .Values.component }}
+        stage: {{ .Values.stage | default "dev" | quote }}
+        tier: {{ .Values.tier }}
+        timestamp: {{ .Values.timestamp | quote }}
+      {{- if and (eq .Values.cluster.provider "kops") (eq .Values.cluster.resourceAccess "kiam") }}
+      annotations:
+        iam.amazonaws.com/role: {{ .Values.cluster.iam.role.arn }}
+      {{- end }}
+    spec:
+      {{- if .Values.affinity.spotInterruptionAffinity.enabled }}
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: {{ .Values.affinity.spotInterruptionAffinity.nodeAffinity.key }}
+                operator: In
+                values:
+                - {{ .Values.affinity.spotInterruptionAffinity.nodeAffinity.value }}
+          - weight: 90
+            preference:
+              matchExpressions:
+              - key: {{ .Values.affinity.spotInterruptionAffinity.nodeAffinity.key }}
+                operator: NotIn
+                values:
+                - {{ .Values.affinity.spotInterruptionAffinity.nodeAffinity.value }}
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  {{- if .Values.canary.enabled }}
+                  - {{ .Values.app }}-primary
+                  - {{ .Values.app }}
+                  {{- else}}
+                  - {{ .Values.app }}
+                  {{- end}}
+              topologyKey: {{ .Values.affinity.spotInterruptionAffinity.podAntiAffinity.topologyKey }}
+          - weight: 90
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  {{- if .Values.canary.enabled }}
+                  - {{ .Values.app }}-primary
+                  - {{ .Values.app }}
+                  {{- else}}
+                  - {{ .Values.app }}
+                  {{- end}}
+              topologyKey: kubernetes.io/hostname
+      {{- end }}
+      containers:
+        - name: service
+          image: {{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.containerPort | default 8080 }}
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ .Chart.Name }}-variables
+            {{- if .Values.justice.commonVariables.enabled }}
+            - configMapRef:
+                name: justice-common-variables
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.healthCheck.liveness.path | default "/healthz" | quote }}
+              port: {{ .Values.service.containerPort | default 8080 }}
+              scheme: HTTP
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds | default 10 }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds | default 15 }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.healthCheck.readiness.path | default "/healthz" | quote }}
+              port: {{ .Values.service.containerPort | default 8080 }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds | default 10 }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds | default 10 }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold | default 1 }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold | default 10 }}
+          resources:
+            limits:
+              {{- if .Values.resources.limits.cpu }}
+              cpu: {{ .Values.resources.limits.cpu }}
+              {{- end }}
+              memory: {{ .Values.resources.limits.memory | default "64Mi" }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu | default "10m" }}
+              memory: {{ .Values.resources.requests.memory | default "64Mi" }}
+      {{- if .Values.image.pullSecret.name }}
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecret.name }}
+      {{- end }}
+      {{- if and (eq .Values.cluster.provider "eks") (eq .Values.cluster.resourceAccess "irsa") }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      securityContext:
+        fsGroup: 65534
+      {{- else if and (eq .Values.cluster.provider "eks") (eq .Values.cluster.resourceAccess "instancerole") }}
+      {{- end }}

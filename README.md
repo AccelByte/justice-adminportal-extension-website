@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+# Justice Admin Portal Extension Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+Justice Admin Portal Extension Website is a web application that extends Admin Portal functionality, mainly to fulfill client's needs that not included in Admin Portal.
 
-## Available Scripts
+## Quick Start
+Project need to be built first in order to make it works:
+```
+make build
+```
 
-In the project directory, you can run:
+To start the development environment, run the following command:
+```
+make run
+```
+The project will be served on `localhost:3003`
 
-### `yarn start`
+## Build Requirements
+* Docker with support for Linux containers
+* GNU Make
+* Internet connection
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Development Requirements
+* See _Build Requirements_
+* Docker Compose
+* IDE (we like WebStorm)
+* To add / change / remove environment variables:
+    1. Change **this (README.md)** document
+    2. Add environment variables that is read on runtime in **deployment/k8s/deployment.yaml**,  **config/env.js**, and  **docker-compose.yaml**
+    3. Add environment variables, both that is read on runtime or build time on **makefile**
+    4. Add conditions (if necessary) on **scripts/env-guard**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Deployment Requirements
+Environment variables that will be read on runtime :
 
-### `yarn test`
+| Environment Variables              | Optional | Description                                                        |
+|------------------------------------|----------|--------------------------------------------------------------------|
+| JUSTICE_BASE_URL                   | No       | The base url of the API which the Admin Portal will call           |
+| JUSTICE_BASE_PATH                  | No       | The base path of extension                                         |
+| JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes      | For dev purpose only, the bearer token of currently logged in user |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Module
+To make our custom works shown in Admin Portal, we need to set up modules and submodules.
+- Module: The high level service of Admin Portal e.g. Analytics, Users Management, E-Commerce, etc
+- SubModule: The specific features/packages inside Module e.g. Users in Users Management, Stores in E-Commerce, etc
 
-### `yarn build`
+### Creating Module
+To create new module, please follow these steps:
+- Create new folder inside packages
+- Add new `module.json` file inside `module` folder
+```json
+{
+  "id": "example",                                    // unique module id
+  "title": "module.example.title",                    // translation key for module title
+  "icon": "icon-ab-sidebar-users"                     // icon that will be shown in AP sidebar
+}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Creating SubModule
+To create new submodule, please follow these steps:
+- Inside a `module`, create new folder
+- Add `submodule.json` file inside `submodule` folder
+```json
+{
+  "id": "example-submodule",                          // unique module id
+  "title": "module.example.submodule.example.title",  // translation key for module title
+  "link": "/namespace/{namespace}/example-submodule", // link to access the submodule page
+  "permission": {
+    "resource": "ADMIN:NAMESPACE:{namespace}:USER:*", // permission to access submodule
+    "action": 2                                       // action to access from AP sidebar
+  }
+}
+```
+- Create a React component just like usual Admin Portal packages

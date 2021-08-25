@@ -1,0 +1,18 @@
+# Copyright (c) 2020-2021 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Chart.Name }}-variables
+  namespace: {{ .Values.namespace | default "dev" | quote }}
+  labels:
+    app: {{ .Values.app }}
+    component: {{ .Values.component }}
+    stage: {{ .Values.stage | default "dev" | quote }}
+    tier: {{ .Values.tier }}
+data:
+  JUSTICE_BASE_URL: {{ .Values.configMap.service.JUSTICE_BASE_URL | quote }}
+  JUSTICE_BASE_PATH: {{ .Values.configMap.service.JUSTICE_BASE_PATH | default "/admin-extension" | quote }}
+
