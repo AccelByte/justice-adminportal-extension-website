@@ -71,7 +71,7 @@ spec:
         timeout: 5s
         url: http://flagger-loadtester.{{ .Values.namespace | default "dev" }}/
         metadata:
-          cmd: "hey -z 1m -q 400 -c 8 http://{{ .Chart.Name }}.{{ .Values.namespace | default "dev" }}:{{ .Values.service.port }}{{ .Values.healthCheck.readiness.path | default "/healthz" }}"
+          cmd: "hey -z 1m -q 400 -c 8 http://{{ .Chart.Name }}.{{ .Values.namespace | default "dev" }}:{{ .Values.service.port }}{{ .Values.healthCheck.readiness.path | default "/admin-extension/healthz" }}"
       {{- end }}
     {{- end }}
 {{- end }}

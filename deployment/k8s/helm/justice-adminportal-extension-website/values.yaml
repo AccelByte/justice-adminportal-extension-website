@@ -117,9 +117,9 @@ livenessProbe:
 healthCheck:
   # healthCheck path is HTTP route for checking service health
   readiness:
-    path: /healthz
+    path: /admin-extension/healthz
   liveness:
-    path: /healthz
+    path: /admin-extension/healthz
 
 justice:
   # path is the service base path (i.e: /iam, /basic, etc)
@@ -187,3 +187,4 @@ configMap:
     JUSTICE_BASE_URL: ${JUSTICE_BASE_URL}
     # determine base path of this service. default = "/admin-extension/"
     JUSTICE_BASE_PATH: ${JUSTICE_BASE_PATH}
+    JUSTICE_PUBLISHER_NAMESPACE: ${JUSTICE_PUBLISHER_NAMESPACE}

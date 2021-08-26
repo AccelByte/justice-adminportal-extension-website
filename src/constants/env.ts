@@ -8,5 +8,6 @@ export const globalVar = {
   NODE_ENV: process.env.NODE_ENV,
   JUSTICE_BASE_URL: process.env.JUSTICE_BASE_URL || "",
   JUSTICE_BASE_PATH: process.env.JUSTICE_BASE_PATH || "/admin-extension",
+  JUSTICE_PUBLISHER_NAMESPACE: process.env.JUSTICE_PUBLISHER_NAMESPACE || "",
   JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE: process.env.JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE || "",
 };

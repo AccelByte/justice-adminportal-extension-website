@@ -67,6 +67,7 @@ Parameter | Description | Example | Environment Variables tag | Conditional
 `affinity.spotInterruptionAffinity.podAntiAffinity.topologyKey` | determine spot itn pod anti affinity main options topologKey   | alpha.eksctl.io/nodegroup-name | SPOT_ITN_POD_ANTI_AFFINITY_TOPOLOGY_KEY  | Optional  |
 `configMap.service.JUSTICE_BASE_URL`  | envar used by the service, determine base url  | `https://dev.accelbyte.io, https://jib.<customer_name>.accelbyte.io`  | BASE_URL | **Required**  |
 `configMap.service.JUSTICE_BASE_PATH`  | envar used by the service, determine base path of this service  | `default = "/admin-extension/"`  | BASE_PATH | **Required**  |
+`configMap.service.JUSTICE_PUBLISHER_NAMESPACE`  | envar used by the service, determine publisher namespace  | `default = "accelbyte"`  | JUSTICE_PUBLISHER_NAMESPACE | Optional  |
 
 
 **tips**: You can configure values.yaml by directly modifying the file (with modifying env var tag),

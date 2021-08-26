@@ -16,7 +16,12 @@ if (!NODE_ENV) {
 
 const isDevMode = process.env.NODE_ENV === "development";
 
-const dynamicEnvVars = ["JUSTICE_BASE_URL", "JUSTICE_BASE_PATH", "JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE"];
+const dynamicEnvVars = [
+  "JUSTICE_BASE_URL",
+  "JUSTICE_BASE_PATH",
+  "JUSTICE_PUBLISHER_NAMESPACE",
+  "JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE",
+];
 
 const getClientEnvironment = () => {
   return dynamicEnvVars.reduce(

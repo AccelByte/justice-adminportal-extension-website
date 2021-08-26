@@ -108,14 +108,14 @@ spec:
             {{- end }}
           livenessProbe:
             httpGet:
-              path: {{ .Values.healthCheck.liveness.path | default "/healthz" | quote }}
+              path: {{ .Values.healthCheck.liveness.path | default "/admin-extension/healthz" | quote }}
               port: {{ .Values.service.containerPort | default 8080 }}
               scheme: HTTP
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds | default 10 }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds | default 15 }}
           readinessProbe:
             httpGet:
-              path: {{ .Values.healthCheck.readiness.path | default "/healthz" | quote }}
+              path: {{ .Values.healthCheck.readiness.path | default "/admin-extension/healthz" | quote }}
               port: {{ .Values.service.containerPort | default 8080 }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds | default 10 }}
             timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds | default 10 }}

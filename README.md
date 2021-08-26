@@ -37,6 +37,7 @@ Environment variables that will be read on runtime :
 |------------------------------------|----------|--------------------------------------------------------------------|
 | JUSTICE_BASE_URL                   | No       | The base url of the API which the Admin Portal will call           |
 | JUSTICE_BASE_PATH                  | No       | The base path of extension                                         |
+| JUSTICE_PUBLISHER_NAMESPACE        | Yes      | The publisher namespace                                            |
 | JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes      | For dev purpose only, the bearer token of currently logged in user |
 
 ## Project Module

@@ -37,6 +37,7 @@ must_exists "JUSTICE_BASE_PATH";
 
 must_be_url "JUSTICE_BASE_URL";
 
+may_exists "JUSTICE_PUBLISHER_NAMESPACE";
 may_exists "JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE";
 
 # Do not edit after this line
