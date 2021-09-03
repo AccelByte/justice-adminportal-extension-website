@@ -22,6 +22,7 @@ export const Enum = <T extends string[]>(...args: T) => {
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type Enum<T extends object> = T[keyof T];
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const isKeyOfEnum = <T extends object>(key: unknown, enumType: T): key is keyof T => {
   return !!Object.values(enumType).find((value) => value === key);
 };

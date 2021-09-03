@@ -8,6 +8,7 @@ import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse, AxiosError } f
 import { globalVar } from "../constants/env";
 import { combineWithJusticeApiUrl } from "../utils/url";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Network extends AxiosInstance {}
 
 type EjectId = number;
@@ -39,12 +40,12 @@ export const addGlobalRequestInterceptors = (
 const globalRequestInterceptors = new Map<EjectId, RequestPairInterceptor>();
 export const globalResponseInterceptors = new Map<EjectId, ResponsePairInterceptor>();
 
-const setupNetwork = (config: AxiosRequestConfig) => {
+const setupNetwork = () => {
   addGlobalRequestInterceptors(
     async (config: AxiosRequestConfig) => {
       const { url } = config;
       if (url) {
-        if (/^https?\:\/\//.test(url)) {
+        if (/^https?:\/\//.test(url)) {
           config.url = url;
         } else {
           config.url = combineWithJusticeApiUrl(url);
@@ -60,12 +61,12 @@ class NetworkManager {
   create(...configs: AxiosRequestConfig[]): Network {
     const axiosConfig = Object.assign({}, ...configs);
     const axiosInstance = axios.create(axiosConfig);
-    setupNetwork(axiosConfig);
-    Array.from(globalRequestInterceptors).forEach(([key, interceptorPair]) => {
+    setupNetwork();
+    Array.from(globalRequestInterceptors).forEach(([, interceptorPair]) => {
       const { interceptor, errorInterceptor } = interceptorPair;
       axiosInstance.interceptors.request.use(interceptor, errorInterceptor);
     });
-    Array.from(globalResponseInterceptors).forEach(([key, interceptorPair]) => {
+    Array.from(globalResponseInterceptors).forEach(([, interceptorPair]) => {
       const { interceptor, errorInterceptor } = interceptorPair;
       axiosInstance.interceptors.response.use(interceptor, errorInterceptor);
     });

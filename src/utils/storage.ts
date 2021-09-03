@@ -7,7 +7,7 @@
 import LZ from "lz-string";
 
 const storageMethods = (storageType: Storage, isCompressed: boolean) => ({
-  setObject: (key: string, value: any) => {
+  setObject: (key: string, value: unknown) => {
     if (!isCompressed) {
       storageType.setItem(key, JSON.stringify(value));
       return;

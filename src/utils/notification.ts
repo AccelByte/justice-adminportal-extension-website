@@ -4,7 +4,7 @@
  * and restrictions contact your company contract manager.
  */
 
-import { ExtensionMessageId, sendMessageToParentWindow } from "./iframe";
+import { MessageType, sendMessageToParentWindow } from "./iframe";
 
 export enum ToastType {
   success = "success",
@@ -18,9 +18,9 @@ export interface ToastNotificationProps {
   message: React.ReactNode;
 }
 
-export const showToastNotification = ({ appearance, message }: ToastNotificationProps) => {
+export const showToastNotification = (data: ToastNotificationProps) => {
   sendMessageToParentWindow({
-    message: { messageId: ExtensionMessageId.notification, data: { appearance, message } },
+    message: { messageType: MessageType.notification, data },
   });
 };
 

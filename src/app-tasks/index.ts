@@ -10,7 +10,7 @@ export interface TaskParams {
   namespace: string;
 }
 
-type Task = (params: TaskParams) => any;
+type Task = (params: TaskParams) => Promise<void>;
 const tasks: Task[] = [initialUserFetcher];
 
 export default async (params: TaskParams) => {

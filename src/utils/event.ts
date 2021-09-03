@@ -5,6 +5,7 @@
  */
 
 export class BaseAppEvent<T> {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   listeners: Map<keyof T, Set<Function>> = new Map();
   private getEventListenerSet<K extends keyof T>(eventName: K) {
     let listeners = this.listeners.get(eventName);

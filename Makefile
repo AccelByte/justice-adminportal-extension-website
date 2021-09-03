@@ -39,7 +39,7 @@ runProd:
 	docker-compose -f docker-compose-prod.yaml up
 
 clean:
-	docker-compose down
+	docker-compose -f docker-compose-dev.yaml down
 	-$(RUN) --user=root $(BUILDER_IMAGE) rm -rf node_modules
 	-$(RUN) --user=root $(BUILDER_IMAGE) rm -rf build
 	-docker rmi -f $(SERVICE)-builder $(SERVICE):$(REVISION_ID)

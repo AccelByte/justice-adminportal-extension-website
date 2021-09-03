@@ -5,16 +5,14 @@
  */
 
 import flatten from "flat";
-import i18next from "i18next";
+import i18next, { Resource, StringMap, TOptions } from "i18next";
 import { initReactI18next } from "react-i18next";
 import config from "./config.json";
 import loadedLanguages, { languageMap } from "./loadLanguages";
-import { isOnBrowser } from "../browserServerSwitch";
 
 const languageLocalStorageKey = "i18nextLng";
 const availableLanguageCodes = config.languageCodes;
-const translationResource = availableLanguageCodes.reduce((resources: any, languageCode: any) => {
-  // eslint-disable-next-line no-param-reassign
+const translationResource: Resource = availableLanguageCodes.reduce((resources: Resource, languageCode: string) => {
   resources[languageCode] = {
     // Loading unflattened resource
     translation: flatten.unflatten(loadedLanguages[languageCode]),
@@ -23,19 +21,15 @@ const translationResource = availableLanguageCodes.reduce((resources: any, langu
 }, {});
 
 function getLocalStorageLanguage(): string {
-  if (isOnBrowser()) {
-    const currentLanguageCode = localStorage.getItem(languageLocalStorageKey);
-    if (currentLanguageCode && availableLanguageCodes.includes(currentLanguageCode)) {
-      return currentLanguageCode;
-    }
+  const currentLanguageCode = localStorage.getItem(languageLocalStorageKey);
+  if (currentLanguageCode && availableLanguageCodes.includes(currentLanguageCode)) {
+    return currentLanguageCode;
   }
   return config.defaultLanguage;
 }
 
 function setLocalStorageLanguage(language: string) {
-  if (isOnBrowser()) {
-    localStorage.setItem(languageLocalStorageKey, language);
-  }
+  localStorage.setItem(languageLocalStorageKey, language);
 }
 
 export const i18nInstance = i18next.use(initReactI18next).createInstance(
@@ -55,7 +49,7 @@ i18nInstance.on("languageChanged", () => {
   setLocalStorageLanguage(i18nInstance.language);
 });
 
-export function t(key: string, options?: any) {
+export function t(key: string, options?: TOptions<StringMap> | string) {
   return i18nInstance.t(key, options);
 }
 

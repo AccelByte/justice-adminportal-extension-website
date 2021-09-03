@@ -5,31 +5,42 @@
  */
 
 import { Enum } from "../api/types";
+import * as H from "history";
+import { ToastNotificationProps } from "./notification";
+import { isInIframe } from "./browserIframeSwitch";
 
-export const ExtensionMessageId = Enum("locationChange", "notification");
+export const MessageType = Enum("locationChange", "notification");
 const DEFAULT_CHANNEL = "admin-extension";
 const DEFAULT_ORIGIN = "*";
 
-export interface Message<T = any> {
-  messageId: keyof typeof ExtensionMessageId;
-  data: T;
+interface NotificationMessage {
+  messageType: typeof MessageType.notification;
+  data: ToastNotificationProps;
 }
 
-interface SendMessageEvent<T> {
+interface LocationChangeMessage {
+  messageType: typeof MessageType.locationChange;
+  data: H.Location<unknown>;
+}
+
+export type Message = NotificationMessage | LocationChangeMessage;
+
+interface SendMessageEvent {
   channel?: string;
-  message: Message<T> | string;
+  message: Message;
   origin?: string;
 }
 
-export function sendMessageToParentWindow<T>({
+export function sendMessageToParentWindow({
   message,
   channel = DEFAULT_CHANNEL,
   origin = DEFAULT_ORIGIN,
-}: SendMessageEvent<T>) {
-  if (typeof message === "string") {
-    window.parent.postMessage(message, origin);
+}: SendMessageEvent) {
+  const parsedMessage = JSON.stringify({ ...message, channel });
+
+  if (!isInIframe()) {
+    console.log("Message to parent window ignored: ", { ...message, channel });
     return;
   }
-
-  window.parent.postMessage(JSON.stringify({ ...message, channel } as Message<T>), origin);
+  window.parent.postMessage(parsedMessage, origin);
 }

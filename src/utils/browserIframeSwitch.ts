@@ -4,9 +4,9 @@
  * and restrictions contact your company contract manager.
  */
 
-export function isOnBrowser() {
+export function isInIframe() {
   try {
-    if (window) {
+    if (window.parent.length > 0) {
       return true;
     }
     // eslint-disable-next-line
@@ -14,15 +14,15 @@ export function isOnBrowser() {
   return false;
 }
 
-export function runOnBrowserOnly(func: Function) {
-  if (isOnBrowser()) {
+export function runInIframeOnly(func: () => void) {
+  if (isInIframe()) {
     return func();
   }
   return undefined;
 }
 
-export function runOnServerOnly(func: Function) {
-  if (!isOnBrowser()) {
+export function runInBrowserOnly(func: () => void) {
+  if (!isInIframe()) {
     return func();
   }
   return undefined;
