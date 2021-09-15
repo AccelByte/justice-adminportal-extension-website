@@ -69,7 +69,20 @@ To create new submodule, please follow these steps:
   "permission": {
     "resource": "ADMIN:NAMESPACE:{namespace}:USER:*", // permission to access submodule
     "action": 2                                       // action to access from AP sidebar
-  }
+  },
+  "allowedNamespaces": ["accelbyte"]                  // optional, allowed namespace to access submodule
 }
 ```
 - Create a React component just like usual Admin Portal packages
+
+#### Restricting access to specific namespace
+Sometimes we want a feature to only available on specific namespace, 
+we can use `allowedNamespaces` as a rule to hide/show the feature. 
+Please refer to the table below on how to apply the rule.
+
+| Value                                                                | Output                                                                                   |
+|----------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| allowedNamespaces: undefined                                         | feature will appear in all namespace                                                     |
+| allowedNamespaces: []                                                | feature will appear in all namespace                                                     |
+| allowedNamespaces: ["accelbyte"]                                     | feature will appear ONLY in "accelbyte" namespace                                        |
+| allowedNamespaces: ["accelbyte", "gamenamespace1", "gamenamespace2"] | feature will appear ONLY in "accelbyte", "gamenamespace1" and "gamenamespace2" namespace |

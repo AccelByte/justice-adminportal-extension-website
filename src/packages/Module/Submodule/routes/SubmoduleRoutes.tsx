@@ -7,11 +7,15 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { ExamplePage } from "../components/ExamplePage";
+import { AllowedNamespaceGuard } from "../../../../components/AllowedNamespaceGuard/AllowedNamespaceGuard";
+import submodule from "../submodule.json";
 
 export const SubmoduleRoutes = () => {
   return (
-    <Switch>
-      <Route path="/" component={ExamplePage} />
-    </Switch>
+    <AllowedNamespaceGuard subModule={submodule}>
+      <Switch>
+        <Route path="/" component={ExamplePage} />
+      </Switch>
+    </AllowedNamespaceGuard>
   );
 };

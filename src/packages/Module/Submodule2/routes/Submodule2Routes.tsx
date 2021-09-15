@@ -8,14 +8,18 @@ import React from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { StoresPage } from "../components/StoresPage";
 import { ItemsPage } from "../components/ItemsPage";
+import { AllowedNamespaceGuard } from "../../../../components/AllowedNamespaceGuard/AllowedNamespaceGuard";
+import subModule from "../submodule.json";
 
 export const Submodule2Routes = () => {
   const { path } = useRouteMatch();
 
   return (
-    <Switch>
-      <Route path={path} exact component={StoresPage} />
-      <Route path={`${path}/:storeId/items`} exact component={ItemsPage} />
-    </Switch>
+    <AllowedNamespaceGuard subModule={subModule}>
+      <Switch>
+        <Route path={path} exact component={StoresPage} />
+        <Route path={`${path}/:storeId/items`} exact component={ItemsPage} />
+      </Switch>
+    </AllowedNamespaceGuard>
   );
 };
