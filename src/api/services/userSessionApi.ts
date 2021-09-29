@@ -67,7 +67,7 @@ class UserSessionApi {
     try {
       const user = await userApi.getCurrentUser();
 
-      return user.userId !== this.getUserData().userId;
+      return user.userId !== this.getUserData().userId || user.namespaceRoles !== this.getUserData().namespaceRoles;
     } catch (error) {
       return true;
     }
