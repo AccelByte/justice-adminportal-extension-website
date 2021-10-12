@@ -1,0 +1,67 @@
+# Copyright (c) 2020-2021 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: justice-adminportal-extension-website
+  namespace: ${NAMESPACE}
+  labels:
+    app: justice-adminportal-extension-website
+    component: justice
+    stage: ${STAGE}
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: justice-adminportal-extension-website
+      component: justice
+      stage: ${STAGE}
+      tier: frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: justice-adminportal-extension-website
+        component: justice
+        stage: ${STAGE}
+        tier: frontend
+    spec:
+      containers:
+        - name: service
+          image: ${IMAGE_TAG}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: justice-adminportal-extension-website-variables 
+          livenessProbe:
+            httpGet:
+              path: /admin-extension/healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /admin-extension/healthz
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 10
+            successThreshold: 1
+            failureThreshold: 10
+          resources:
+            limits:
+              cpu: ${CPU_LIMIT}
+              memory: ${MEMORY_LIMIT}
+            requests:
+              cpu: ${CPU_REQUEST}
+              memory: ${MEMORY_REQUEST}

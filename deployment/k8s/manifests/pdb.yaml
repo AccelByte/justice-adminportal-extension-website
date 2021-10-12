@@ -1,0 +1,16 @@
+# Copyright (c) 2020 AccelByte Inc. All Rights Reserved.
+# This is licensed software from AccelByte Inc, for limitations
+# and restrictions contact your company contract manager
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: justice-adminportal-extension-website
+  namespace: ${NAMESPACE}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: justice-adminportal-extension-website
+      component: justice
+      stage: ${STAGE}
+      tier: frontend
