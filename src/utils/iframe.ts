@@ -9,7 +9,7 @@ import * as H from "history";
 import { ToastNotificationProps } from "./notification";
 import { isInIframe } from "./browserIframeSwitch";
 
-export const MessageType = Enum("locationChange", "notification");
+export const MessageType = Enum("locationChange", "notification", "sessionExpired");
 const DEFAULT_CHANNEL = "admin-extension";
 const DEFAULT_ORIGIN = "*";
 
@@ -23,7 +23,11 @@ interface LocationChangeMessage {
   data: H.Location<unknown>;
 }
 
-export type Message = NotificationMessage | LocationChangeMessage;
+interface sessionExpiredMessage {
+  messageType: typeof MessageType.sessionExpired;
+}
+
+export type Message = NotificationMessage | LocationChangeMessage | sessionExpiredMessage;
 
 interface SendMessageEvent {
   channel?: string;

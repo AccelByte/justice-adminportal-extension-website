@@ -5,13 +5,14 @@
  */
 
 import initialUserFetcher from "./initUserSession";
+import initUnAuthorizedHandler from "./initUnAuthorizedHandler";
 
 export interface TaskParams {
   namespace: string;
 }
 
-type Task = (params: TaskParams) => Promise<void>;
-const tasks: Task[] = [initialUserFetcher];
+type Task = (params: TaskParams) => Promise<void> | void;
+const tasks: Task[] = [initUnAuthorizedHandler, initialUserFetcher];
 
 export default async (params: TaskParams) => {
   return await tasks.reduce(async (promise, task) => {

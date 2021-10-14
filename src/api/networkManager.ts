@@ -37,6 +37,19 @@ export const addGlobalRequestInterceptors = (
   return ejectId;
 };
 
+export const addGlobalResponseInterceptors = (
+  interceptor: ResponseInterceptor,
+  errorInterceptor: ResponseErrorInterceptor
+): EjectId => {
+  const pair = { interceptor, errorInterceptor };
+  const ejectId = axios.interceptors.response.use(
+    interceptor,
+    errorInterceptor
+  );
+  globalResponseInterceptors.set(ejectId, pair);
+  return ejectId;
+};
+
 const globalRequestInterceptors = new Map<EjectId, RequestPairInterceptor>();
 export const globalResponseInterceptors = new Map<EjectId, ResponsePairInterceptor>();
 

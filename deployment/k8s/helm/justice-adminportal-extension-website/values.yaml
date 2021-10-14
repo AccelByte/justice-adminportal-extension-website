@@ -75,7 +75,7 @@ canary:
 
 service:
   # determine whether k8s service object will included to deployment manifest(true/false)
-  enabled: '${INCLUDE_K8S_SERVICE_OBJECT}'
+  enabled: "${INCLUDE_K8S_SERVICE_OBJECT}"
   type: NodePort
   port: 80
   # containerPort is the HTTP listener port for the container
@@ -134,12 +134,12 @@ justice:
 
 cluster:
   # fill cluster provider name (i.e kops,eks,gke, etc)
-  provider: '${CLUSTER_PROVIDER}'
+  provider: "${CLUSTER_PROVIDER}"
   # resourceAccess is parameter to indicate whether the service required
   # access to Cloud Provider Resources or not
   #
   # fill with kiam, irsa , instancerole or none
-  resourceAccess: '${RESOURCE_ACCESS_METHOD}'
+  resourceAccess: "${RESOURCE_ACCESS_METHOD}"
   # NOTES :
   # if you use provider "kops" and want to have resoure access
   # you must fill with "kiam"
@@ -178,7 +178,6 @@ affinity:
     podAntiAffinity:
       # determine spot itn pod anti affinity main options topologKey
       topologyKey: ${SPOT_ITN_POD_ANTI_AFFINITY_TOPOLOGY_KEY}
-
 
 # configMap contains required envars for service
 configMap:
