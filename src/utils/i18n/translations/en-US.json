@@ -1,7 +1,27 @@
 {
+  "common.action": "Action",
+  "common.error.401.title": "Unauthorized Access",
+  "common.error.401.subTitle": "You don't have access to this page",
   "error.general.title": "Oops...",
   "error.general.subtitle": "Looks like something went wrong.\n Please reload the page or contact System Administrator.",
   "module.example.title": "Example Module",
   "module.example.submodule.example-1-submodule.title": "Example Submodule",
-  "module.example.submodule.example-2-submodule.title": "Another Submodule"
+  "module.example.submodule.example-2-submodule.title": "Another Submodule",
+  "example.module.subModule.examplePage.title": "User",
+  "example.module.subModule.examplePage.userInfo.title": "Current User",
+  "example.module.subModule.examplePage.userInfo.displayName": "Display Name",
+  "example.module.subModule.examplePage.userInfo.userName": "User Name",
+  "example.module.subModule.examplePage.userInfo.emailAddress": "Email Address",
+  "example.module.subModule.examplePage.userInfo.country": "Country",
+  "example.module.subModule.examplePage.userInfo.dateOfBirth": "Date of Birth",
+  "example.module.subModule2.storesPage.title": "Stores",
+  "example.module.subModule2.storesPage.stores.title": "Published Store",
+  "example.module.subModule2.storesPage.stores.id": "ID",
+  "example.module.subModule2.storesPage.stores.name": "Title",
+  "example.module.subModule2.storesPage.stores.defaultRegion": "Default Region",
+  "example.module.subModule2.itemsPage.title": "Items",
+  "example.module.subModule2.itemsPage.items.title": "Items",
+  "example.module.subModule2.itemsPage.items.id": "ID",
+  "example.module.subModule2.itemsPage.items.name": "Name",
+  "example.module.subModule2.itemsPage.items.itemType": "Item Type"
 }

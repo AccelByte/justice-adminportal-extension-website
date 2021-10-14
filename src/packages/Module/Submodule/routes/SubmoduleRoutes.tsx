@@ -6,7 +6,7 @@
 
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { ExamplePage } from "../components/ExamplePage";
+import { ExamplePage } from "../pages/ExamplePage";
 import { AllowedNamespaceGuard } from "../../../../components/AllowedNamespaceGuard/AllowedNamespaceGuard";
 import submodule from "../submodule.json";
 

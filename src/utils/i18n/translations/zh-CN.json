@@ -1,7 +1,27 @@
 {
+  "common.action": "行动",
+  "common.error.401.title": "越权存取",
+  "common.error.401.subTitle": "您无权访问此页面",
   "error.general.title": "哎呀...",
   "error.general.subtitle": "好像出了点问题。\n请重新加载页面或联系系统管理员。",
   "module.example.title": "示例模块",
   "module.example.submodule.example-1-submodule.title": "示例子模块",
-  "module.example.submodule.example-2-submodule.title": "另一个子模块"
+  "module.example.submodule.example-2-submodule.title": "另一个子模块",
+  "example.module.subModule.examplePage.title": "用户",
+  "example.module.subModule.examplePage.userInfo.title": "当前用户",
+  "example.module.subModule.examplePage.userInfo.displayName": "显示名称",
+  "example.module.subModule.examplePage.userInfo.userName": "用户名",
+  "example.module.subModule.examplePage.userInfo.emailAddress": "电子邮件地址",
+  "example.module.subModule.examplePage.userInfo.country": "国家",
+  "example.module.subModule.examplePage.userInfo.dateOfBirth": "出生日期",
+  "example.module.subModule2.storesPage.title": "商店",
+  "example.module.subModule2.storesPage.stores.title": "已出版商店",
+  "example.module.subModule2.storesPage.stores.id": "ID",
+  "example.module.subModule2.storesPage.stores.name": "标题",
+  "example.module.subModule2.storesPage.stores.defaultRegion": "默认区域",
+  "example.module.subModule2.itemsPage.title": "项目",
+  "example.module.subModule2.itemsPage.items.title": "项目",
+  "example.module.subModule2.itemsPage.items.id": "ID",
+  "example.module.subModule2.itemsPage.items.name": "姓名",
+  "example.module.subModule2.itemsPage.items.itemType": "物品种类"
 }

@@ -6,52 +6,15 @@
 
 import React from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { Card, DynamicTable, LoadingOrErrorWrapper, Page, Pagination } from "justice-ui-library";
+import { Card, LoadingOrErrorWrapper, Page, Pagination } from "justice-ui-library";
 import classNames from "classnames";
 import { RequestType } from "../../../../api/types";
-import { Item, ItemResponse } from "../../../../api/ecommerce/models/item";
+import { ItemResponse } from "../../../../api/ecommerce/models/item";
 import networkManager from "../../../../api/networkManager";
 import { fetchItemsByCriteria, FetchItemsByCriteriaParams } from "../../../../api/ecommerce/item";
 import { parse } from "query-string";
-
-function getTableHead() {
-  return {
-    cells: [
-      {
-        key: "itemId",
-        content: "ID",
-      },
-      {
-        key: "name",
-        content: "Name",
-      },
-      {
-        key: "itemType",
-        content: "ItemType",
-      },
-    ],
-  };
-}
-
-function getTableContent(items: Item[]) {
-  return items.map((item, index) => ({
-    key: `row-${index}-${item.itemId}`,
-    cells: [
-      {
-        key: `${index}-${item.itemId}-id`,
-        content: item.itemId,
-      },
-      {
-        key: `${index}-${item.name}-name`,
-        content: item.name,
-      },
-      {
-        key: `${index}-${item.itemType}-itemType`,
-        content: item.itemType,
-      },
-    ],
-  }));
-}
+import ItemList from "../components/ItemList";
+import { t } from "../../../../utils/i18n/i18n";
 
 export const ItemsPage = () => {
   const history = useHistory();
@@ -93,13 +56,13 @@ export const ItemsPage = () => {
   }, [pathname, search]);
 
   return (
-    <Page title={"Items"}>
-      <Card cardTitle={"Items"} noHorizontalMargin noPadding>
+    <Page title={t("example.module.subModule2.itemsPage.title")}>
+      <Card cardTitle={t("example.module.subModule2.itemsPage.items.title")} noHorizontalMargin noPadding>
         <div className={classNames({ "mt-5": items.isLoading })}>
           <LoadingOrErrorWrapper isLoading={items.isLoading} error={items.error} errorTitle={"Unable to show data"}>
             {items.data && (
               <>
-                <DynamicTable head={getTableHead()} rows={getTableContent(items.data.data)} />
+                <ItemList items={items.data.data} />
                 <Pagination paging={items.data.paging} changePage={onChangePage} />
               </>
             )}

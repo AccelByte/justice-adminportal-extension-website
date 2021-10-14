@@ -6,8 +6,8 @@
 
 import React from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import { StoresPage } from "../components/StoresPage";
-import { ItemsPage } from "../components/ItemsPage";
+import { StoresPage } from "../pages/StoresPage";
+import { ItemsPage } from "../pages/ItemsPage";
 import { AllowedNamespaceGuard } from "../../../../components/AllowedNamespaceGuard/AllowedNamespaceGuard";
 import subModule from "../submodule.json";
 
