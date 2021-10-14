@@ -4,7 +4,7 @@
  * and restrictions contact your company contract manager.
  */
 
-import { Item } from "~/api/ecommerce/models/item";
+import { Item } from "../../../../api/ecommerce/models/item";
 import { DynamicTable } from "justice-ui-library";
 import React from "react";
 import { t } from "../../../../utils/i18n/i18n";

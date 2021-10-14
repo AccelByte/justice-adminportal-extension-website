@@ -6,7 +6,7 @@
 
 import React from "react";
 import { CardInformationTable, HorizontalFieldText } from "justice-ui-library";
-import { AdminUser } from "~/api/iam/models/user";
+import { AdminUser } from "../../../../api/iam/models/user";
 import { t } from "../../../../utils/i18n/i18n";
 
 interface Props {
