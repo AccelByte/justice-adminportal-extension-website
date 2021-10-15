@@ -4,6 +4,16 @@
 
 Justice Admin Portal Extension Website is a web application that extends Admin Portal functionality, mainly to fulfill client's needs that not included in Admin Portal. Please also check this [Development Guideline](https://accelbyte.atlassian.net/wiki/spaces/CC/pages/2271379457/Admin+Portal+Extension+Development+Guideline)
 
+## How it works
+
+We extend Admin Portal by loading this Extension website through an iframe in Admin Portal page.
+
+- Admin Portal get manifest provided by Extension that contains page information
+- Use that manifest to generate menus in the sidebar
+- Load Extension website through iframe when user open the menu
+
+Admin Portal and Extension website shares token through browser's cookies.
+
 ## Quick Start
 
 Project need to be built first in order to make it works:
@@ -111,13 +121,27 @@ To create new submodule, please follow these steps:
   "link": "/namespace/{namespace}/example-submodule", // link to access the submodule page
   "permission": {
     "resource": "ADMIN:NAMESPACE:{namespace}:USER:*", // permission to access submodule
-    "action": 2 // action to access from AP sidebar
+    "action": 2 // action to access from Admin Portal sidebar
   },
   "allowedNamespaces": ["accelbyte"] // optional, allowed namespace to access submodule
 }
 ```
 
 - Create a React component just like usual Admin Portal packages
+
+#### How to access your page directly in web browser
+
+URL pattern:
+`http://localhost:3003/admin-extension/namespaces/{namespace}/{moduleId}`
+
+- `namespace` : current namespace you are currently working on
+- `moduleId` : Module/SubModule's id. You can get this value from `id` in `module.json`/`submodule.json` 
+
+e.g
+```
+http://localhost:3003/admin-extension/namespaces/accelbyte/example
+http://localhost:3003/admin-extension/namespaces/accelbyte/example-submodule
+```
 
 #### Restricting access to specific namespace
 
@@ -136,9 +160,9 @@ Import module/submodule's route component and register in [src/routes/PrivateRou
 
 ### Common components
 
-We have common components that match with AP's design system.
+We have common components that match with Admin Portal's design system.
 
-```typescript jsx
+```
 import { Card, Page } from "justice-ui-library";
 
 const SomeComponent = () => (
@@ -244,7 +268,7 @@ showToastNotificationSuccess("Success message here");
 showToastNotificationError(errorObject, "Default error message here");
 ```
 
-In case you run AP extension without AP, this notification will only do console.log
+In case you run this extension without Admin Portal, this notification will only do console.log
 
 ## Localization
 
@@ -260,7 +284,7 @@ We use i18next for localization, for now we have en-US and zh-CN. the default lo
 
 #### In component
 
-```typescript jsx
+```
 import { t } from "src/utils/i18n/i18n";
 
 <Component>{t("translationIdentifiere")}</Component>;
@@ -276,11 +300,11 @@ import { t } from "src/utils/i18n/i18n";
 
 ### How to test
 
-#### With AP
+#### With Admin Portal
 
-You don't need to do anything, it will follow AP's locale.
+You don't need to do anything, it will follow Admin Portal's locale.
 
-#### Without AP
+#### Without Admin Portal
 
 i18next use localStorage to identify active locale, so you can just add localStorage item then refresh the page.
 
