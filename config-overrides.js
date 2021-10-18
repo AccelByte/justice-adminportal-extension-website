@@ -8,6 +8,7 @@ const webpack = require("webpack");
 const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const configPaths = require("./config/paths");
+const path = require("path");
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
@@ -45,6 +46,12 @@ module.exports = {
       }),
       new InterpolateHtmlPlugin(HtmlWebpackPlugin, getRawEnvar()),
     ];
+
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      ["~"]: path.resolve(__dirname, "./src"),
+      ["@packages"]: path.resolve(__dirname, "./src/packages"),
+    };
 
     config.plugins.push(...extraPlugins);
     return config;
