@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.0%0D0.1.2) (2021-10-25)
+
+
+### Features
+
+* add base logic and translate error ([d7b52b2](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/d7b52b263e5aa3f220605fb23435a74cab6dbca4))
+* **extension:** add allowed namespace checking ([95c949c](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/95c949cb84a5690220e952aa950d4096b94c751a)), closes [#6](https://accelbyte.atlassian.net/browse/6)
+
+
+### Bug Fixes
+
+* Updating user data when user role updated ([6bac554](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/6bac554f96d9e07675530e0ed029807bb41cb0b0))
+
 ### 0.1.2 (2021-09-13)
 
 
