@@ -79,6 +79,13 @@
     memoize-one "^5.1.0"
     tslib "^1.9.3"
 
+"@atlaskit/codemod-utils@^3.4.0":
+  version "3.4.0"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/codemod-utils/-/codemod-utils-3.4.0.tgz#8ec854b6b935e290eafe701b83167450af9c2efa"
+  integrity sha512-cmKbsIQXA52HhMJf5qau8WZyqwvFvc7ToADa3Omv2KHY3DdBK2KBPg1YWVtw7I+FnzPRBLFyWNVaQTlHsUstew==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+
 "@atlaskit/dropdown-menu@^9.0.0":
   version "9.0.6"
   resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/dropdown-menu/-/dropdown-menu-9.0.6.tgz#9e3fa39777404cb6c42f3ff13bb7024ba596c3a7"
@@ -134,6 +141,16 @@
     "@atlaskit/theme" "^11.3.0"
     "@babel/runtime" "^7.0.0"
 
+"@atlaskit/field-text-area@^8.0.7":
+  version "8.0.7"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/field-text-area/-/field-text-area-8.0.7.tgz#92f8d56508fb5355309e8787c4bce68f22546d12"
+  integrity sha512-5NEP+t79zXCWCv954xd8RWmlMB759ZL6crkcji08806hmgjDXH5zEUxynCmsRiOkJO/0P9qY80XvUz7w8u2Bhw==
+  dependencies:
+    "@atlaskit/analytics-next" "^8.0.0"
+    "@atlaskit/field-base" "^15.0.0"
+    "@atlaskit/theme" "^12.0.0"
+    "@babel/runtime" "^7.0.0"
+
 "@atlaskit/field-text@^11.0.6":
   version "11.0.6"
   resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/field-text/-/field-text-11.0.6.tgz#a81612007d1c5ec034b0f0c85f99f493ae5d972a"
@@ -161,6 +178,17 @@
     "@atlaskit/theme" "^11.4.0"
     "@babel/runtime" "^7.0.0"
     "@emotion/core" "^10.0.9"
+
+"@atlaskit/inline-dialog@^12.1.7":
+  version "12.1.14"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/inline-dialog/-/inline-dialog-12.1.14.tgz#a0aac2158a40005e3661fbccb6eafaee10833223"
+  integrity sha512-uwnstsFiy5Avm5K2JaD6zMNc4i88RIncCg784eZvQyoJ115UDI7BGUwf4Cl0tLRY0uaFnNsoxZ7XTAyLGmWELA==
+  dependencies:
+    "@atlaskit/analytics-next" "^6.3.5"
+    "@atlaskit/popper" "^3.1.12"
+    "@atlaskit/theme" "^9.5.1"
+    react-node-resolver "^1.0.1"
+    tslib "^1.9.3"
 
 "@atlaskit/inline-dialog@^13.0.0":
   version "13.1.0"
@@ -336,6 +364,15 @@
     exenv "^1.2.2"
     prop-types "^15.5.10"
 
+"@atlaskit/theme@^12.0.0":
+  version "12.0.0"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/theme/-/theme-12.0.0.tgz#f70b9bb2d18fc040ac5197d7636129119138c089"
+  integrity sha512-vrsOU2ZG3j6MKPp/NqqD7CLVL8U6OSD960ZaCypvPWwhqB1ZjDJ6CZXlq7yyHjCZWZbt9o6v12uR9fetwh3jiA==
+  dependencies:
+    "@atlaskit/codemod-utils" "^3.4.0"
+    "@atlaskit/tokens" "^0.2.0"
+    "@babel/runtime" "^7.0.0"
+
 "@atlaskit/theme@^8.1.4", "@atlaskit/theme@^8.1.5":
   version "8.1.9"
   resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/theme/-/theme-8.1.9.tgz#ddad6f0458a07cef6b5273dfd510067c8420484b"
@@ -358,6 +395,13 @@
   version "0.1.0"
   resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/tokens/-/tokens-0.1.0.tgz#9552be258372edfcb2031c60338b5987b7cf2788"
   integrity sha512-D5nqI4jAbQYJwX1iVuGIa2Cr51QRrLL+hOhjMDEGj1nHkvgkIq0f24tAH8y5rUEW6/G7KGoDixHtvuw364Buug==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+
+"@atlaskit/tokens@^0.2.0":
+  version "0.2.1"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/@atlaskit/tokens/-/tokens-0.2.1.tgz#85b48d52d49688ebaef604949426588ba9c81892"
+  integrity sha512-Fm/F9mOC7QI5OSwvyY5N5+cvhx0lPLPAE5sE520ztb+YOaSiFxHZ13YBJkkdVTtxbGsYayYWITinGDQcCnhLog==
   dependencies:
     "@babel/runtime" "^7.0.0"
 
@@ -2258,6 +2302,13 @@
   dependencies:
     classnames "*"
 
+"@types/dompurify@^2.3.1":
+  version "2.3.1"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/@types/dompurify/-/dompurify-2.3.1.tgz#2934adcd31c4e6b02676f9c22f9756e5091c04dd"
+  integrity sha512-YJth9qa0V/E6/XPH1Jq4BC8uCMmO8V1fKWn8PCvuZcAhMn7q0ez9LW6naQT04UZzjFfAPhyRMZmI2a2rbMlEFA==
+  dependencies:
+    "@types/trusted-types" "*"
+
 "@types/eslint@^7.2.6":
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.2.6.tgz#5e9aff555a975596c03a98b59ecd103decc70c3c"
@@ -2401,6 +2452,13 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
 
+"@types/react-copy-to-clipboard@^5.0.1":
+  version "5.0.2"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/@types/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.2.tgz#c29690b472a54edff35916f0d1c6c797ad0fd34b"
+  integrity sha512-O29AThfxrkUFRsZXjfSWR2yaWo0ppB1yLEnHA+Oh24oNetjBAwTDu1PmolIqdJKzsZiO4J1jn6R6TmO96uBvGg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@*", "@types/react-dom@^17.0.0":
   version "17.0.9"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.9.tgz#441a981da9d7be117042e1a6fd3dac4b30f55add"
@@ -2509,6 +2567,11 @@
   integrity sha512-Gk9vaXfbzc5zCXI9eYE9BI5BNHEp4D3FWjgqBE/ePGYElLAP+KvxBcsdkwfIVvezs605oiyd/VrpiHe3Oeg+Aw==
   dependencies:
     "@types/jest" "*"
+
+"@types/trusted-types@*":
+  version "2.0.2"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/@types/trusted-types/-/trusted-types-2.0.2.tgz#fc25ad9943bcac11cceb8168db4f275e0e72e756"
+  integrity sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==
 
 "@types/uglify-js@*":
   version "3.12.0"
@@ -4549,6 +4612,13 @@ copy-descriptor@^0.1.0:
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
 
+copy-to-clipboard@^3:
+  version "3.3.1"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/copy-to-clipboard/-/copy-to-clipboard-3.3.1.tgz#115aa1a9998ffab6196f93076ad6da3b913662ae"
+  integrity sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==
+  dependencies:
+    toggle-selection "^1.0.6"
+
 core-js-compat@^3.6.2, core-js-compat@^3.8.0:
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.9.0.tgz#29da39385f16b71e1915565aa0385c4e0963ad56"
@@ -5343,6 +5413,11 @@ domhandler@^2.3.0:
   integrity sha512-JiK04h0Ht5u/80fdLMCEmV4zkNh2BcoMFBmZ/91WtYZ8qVXSKjiw7fXMgFPnHcSZgOo3XdinHvmnDUeMf5R4wA==
   dependencies:
     domelementtype "1"
+
+dompurify@^2.3.3:
+  version "2.3.3"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/dompurify/-/dompurify-2.3.3.tgz#c1af3eb88be47324432964d8abc75cf4b98d634c"
+  integrity sha512-dqnqRkPMAjOZE0FogZ+ceJNM2dZ3V/yNOuFB7+39qpO93hHhfRpHw3heYQC7DPK9FqbQTfBKUJhiSfz4MvXYwg==
 
 domutils@^1.5.1, domutils@^1.7.0:
   version "1.7.0"
@@ -8670,14 +8745,16 @@ justice-js-common-utils@1.20.0:
     naughty-words "^1.1.0"
     xregexp "^4.3.0"
 
-"justice-ui-library@git+ssh://git@bitbucket.org/accelbyte/justice-ui-library.git#0.1.3":
-  version "0.1.3"
-  resolved "git+ssh://git@bitbucket.org/accelbyte/justice-ui-library.git#95fd6a9b2dd9026e972b54c3541fb89fe1417fca"
+"justice-ui-library@git+https://github.com/AccelByte/justice-ui-library.git#0.1.20":
+  version "0.1.20"
+  resolved "git+https://github.com/AccelByte/justice-ui-library.git#416eba7729fea0b9f06fb03b0d7c2e6f2c07c7a3"
   dependencies:
     "@atlaskit/button" "^11.0.11"
     "@atlaskit/dropdown-menu" "^9.0.0"
     "@atlaskit/dynamic-table" "^13.0.0"
     "@atlaskit/field-text" "^11.0.6"
+    "@atlaskit/field-text-area" "^8.0.7"
+    "@atlaskit/inline-dialog" "^12.1.7"
     "@atlaskit/modal-dialog" "^10.1.6"
     "@atlaskit/select" "^13.0.2"
     "@atlaskit/tag" "^11.1.3"
@@ -8685,13 +8762,17 @@ justice-js-common-utils@1.20.0:
     "@testing-library/react" "^11.1.0"
     "@testing-library/user-event" "^12.1.10"
     "@types/classnames" "^2.2.3"
+    "@types/dompurify" "^2.3.1"
     "@types/jest" "^26.0.15"
     "@types/node" "^12.0.0"
     "@types/react" "^17.0.0"
+    "@types/react-copy-to-clipboard" "^5.0.1"
     "@types/react-dom" "^17.0.0"
     "@types/react-tooltip" "^3.3.5"
     classnames "^2.2.5"
+    dompurify "^2.3.3"
     moment "^2.29.1"
+    react-copy-to-clipboard "^5.0.4"
     react-datetime "^2.16.3"
     react-tooltip "^3.6.1"
     styled-components "^3.2.6"
@@ -11304,6 +11385,14 @@ react-clientside-effect@^1.2.0:
   dependencies:
     "@babel/runtime" "^7.12.13"
 
+react-copy-to-clipboard@^5.0.4:
+  version "5.0.4"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.4.tgz#42ec519b03eb9413b118af92d1780c403a5f19bf"
+  integrity sha512-IeVAiNVKjSPeGax/Gmkqfa/+PuMTBhutEvFUaMQLwE2tS0EXrAdgOpWDX26bWTXF3HrioorR7lr08NqeYUWQCQ==
+  dependencies:
+    copy-to-clipboard "^3"
+    prop-types "^15.5.8"
+
 react-datetime@^2.16.3:
   version "2.16.3"
   resolved "https://nexus.accelbyte.net/repository/npm-group/react-datetime/-/react-datetime-2.16.3.tgz#7f9ac7d4014a939c11c761d0c22d1fb506cb505e"
@@ -13443,6 +13532,11 @@ to-through@^2.0.0:
   integrity sha1-/JKtq6ByZHvAtn1rA2ZKoZUJOvY=
   dependencies:
     through2 "^2.0.3"
+
+toggle-selection@^1.0.6:
+  version "1.0.6"
+  resolved "https://nexus.accelbyte.net/repository/npm-group/toggle-selection/-/toggle-selection-1.0.6.tgz#6e45b1263f2017fa0acc7d89d78b15b8bf77da32"
+  integrity sha1-bkWxJj8gF/oKzH2J14sVuL932jI=
 
 toidentifier@1.0.0:
   version "1.0.0"
