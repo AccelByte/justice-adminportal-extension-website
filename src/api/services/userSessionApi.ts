@@ -52,7 +52,7 @@ class UserSessionApi {
       userSessionEvent.userLoaded(currentUser);
     } catch (error) {
       console.error(error);
-      userSessionEvent.userError(error);
+      userSessionEvent.userError(error as Error);
       this.clearUserData();
     }
   };

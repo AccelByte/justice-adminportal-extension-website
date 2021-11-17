@@ -29,10 +29,10 @@ export async function wrapNetworkCall<ResponseDataType, ErrorType>(
     return { response, error: null };
   } catch (error) {
     try {
-      return { response: null, error: await transformError(error) };
+      return { response: null, error: await transformError(error as Error) };
     } catch (errorHandlerException) {
       console.error(`NetworkCallWrapperException: `, errorHandlerException);
-      return Promise.resolve({ response: null, error });
+      return Promise.resolve({ response: null, error: error as ErrorType });
     }
   }
 }
