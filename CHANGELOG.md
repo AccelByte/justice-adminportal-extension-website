@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.1%0D0.2.0) (2021-11-22)
+
+
+### Features
+
+* **oauth:** Add refresh token when access admin portal extension inside admin portal ([ee67e34](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/ee67e34c97195c1ca36da8db1af1e33833e8933a))
+
+
+### Refactors
+
+* Module example follow standardization ([b1a1347](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/b1a134745a8e9dd79f81574f7f0855ab43dc5fa8))
+
+
+### Documentations
+
+* fix code block and add url pattern info and how it works ([f130d72](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/f130d72a29fdf76439b2bf82fea12f67ad18b216))
+* Update development guideline ([c7b56e8](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/c7b56e8462db87e857fe52c24797c8e3281e88b5))
+
+
+### Builds
+
+* CORE-5097 get justice-ui-library from github ([cd735d1](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/cd735d1cf8d252d42f537546d52f0eab92cf8c46))
+
 ## [0.2.0](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.0%0D0.1.2) (2021-10-25)
 
 
