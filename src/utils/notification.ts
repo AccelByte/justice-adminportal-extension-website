@@ -9,6 +9,8 @@ import { isAxiosNetworkError, isAxiosServerError } from "../api/errorDeducer";
 import { t } from "./i18n/i18n";
 import { translateServiceErrorForAdmin } from "justice-js-common-utils";
 import { extractServiceErrorCode } from "../api/serviceErrorDeducer";
+import ReactDomServer from "react-dom/server";
+import { ReactElement } from "react";
 
 export enum ToastType {
   success = "success",
@@ -25,8 +27,15 @@ export interface ToastNotificationProps {
 }
 
 export const showToastNotification = (data: ToastNotificationProps) => {
+  const stringMessage =
+    typeof data.message === "string" ? data.message : ReactDomServer.renderToStaticMarkup(data.message as ReactElement);
+  const notificationData: ToastNotificationProps = {
+    appearance: data.appearance,
+    message: stringMessage,
+  };
+
   sendMessageToParentWindow({
-    message: { messageType: MessageType.notification, data },
+    message: { messageType: MessageType.notification, data: notificationData },
   });
 };
 
