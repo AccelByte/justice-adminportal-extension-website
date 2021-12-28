@@ -6,14 +6,15 @@
 
 import React from "react";
 import { Card, LoadingOrErrorWrapper, Page } from "justice-ui-library";
-import networkManager from "../../../../api/networkManager";
-import { RequestType } from "../../../../api/types";
+import networkManager from "~/api/networkManager";
+import { RequestType } from "~/api/types";
 import classNames from "classnames";
-import { fetchStores } from "../../../../api/ecommerce/store";
+import { fetchStores } from "~/api/ecommerce/store";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { Store } from "../../../../api/ecommerce/models/store";
+import { Store } from "~/api/ecommerce/models/store";
 import StoreList from "../components/StoreList";
-import { t } from "../../../../utils/i18n/i18n";
+import { t } from "~/utils/i18n/i18n";
+import { showToastNotificationSuccess } from "~/utils/notification";
 
 export const StoresPage = () => {
   const history = useHistory();
@@ -43,9 +44,31 @@ export const StoresPage = () => {
       });
   }, []);
 
+  // This is only for cross-domain communication testing purposes
+  // where the communication is done manually by the user.
+  // Please do not remove
+  const testShowToastNotification = (message: string) => {
+    const element = (
+      <div>
+        <p>
+          {message} <strong>using element</strong>
+        </p>
+      </div>
+    );
+    showToastNotificationSuccess(element);
+    showToastNotificationSuccess(`${message} using string`);
+  };
+
   return (
     <Page title={t("example.module.subModule2.storesPage.title")}>
-      <Card cardTitle={t("example.module.subModule2.storesPage.stores.title")} noHorizontalMargin noPadding>
+      <Card
+        cardTitle={t("example.module.subModule2.storesPage.stores.title")}
+        buttonOnClick={() => testShowToastNotification("notification is successful")}
+        buttonAppearance="primary"
+        buttonText="click here to test the toast notification"
+        noHorizontalMargin
+        noPadding
+      >
         <div className={classNames({ "mt-5": stores.isLoading })}>
           <LoadingOrErrorWrapper isLoading={stores.isLoading} error={stores.error} errorTitle={"Unable to show data"}>
             <StoreList stores={stores.data.filter((store) => store.published)} onView={onViewClick} />

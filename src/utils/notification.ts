@@ -4,13 +4,14 @@
  * and restrictions contact your company contract manager.
  */
 
-import { MessageType, sendMessageToParentWindow } from "./iframe";
-import { isAxiosNetworkError, isAxiosServerError } from "../api/errorDeducer";
+import { sendMessageToParentWindow } from "./iframe";
+import { isAxiosNetworkError, isAxiosServerError } from "~/api/errorDeducer";
 import { t } from "./i18n/i18n";
 import { translateServiceErrorForAdmin } from "justice-js-common-utils";
-import { extractServiceErrorCode } from "../api/serviceErrorDeducer";
+import { extractServiceErrorCode } from "~/api/serviceErrorDeducer";
 import ReactDomServer from "react-dom/server";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
+import { MessageType } from "~/models/iframe";
 
 export enum ToastType {
   success = "success",
@@ -21,7 +22,7 @@ export enum ToastType {
 
 export interface ToastNotificationProps {
   appearance: ToastType;
-  message: string;
+  message: ReactNode;
   errorCode?: number;
   defaultErrorMessage?: string;
 }
@@ -55,7 +56,7 @@ export function showToastNotificationError(error: Error, defaultMessage?: string
   });
 }
 
-export function showToastNotificationSuccess(message: string) {
+export function showToastNotificationSuccess(message: ReactNode) {
   return showToastNotification({ message, appearance: ToastType.success });
 }
 

@@ -4,44 +4,14 @@
  * and restrictions contact your company contract manager.
  */
 
-import { Enum } from "../api/types";
-import * as H from "history";
-import { ToastNotificationProps } from "./notification";
 import { isInIframe } from "./browserIframeSwitch";
+import { onAdminMessageReceived } from "~/utils/postMessageHandler";
+import { CallBackType, MessageType, SendMessageEvent } from "~/models/iframe";
+import * as ioTs from "io-ts";
 
-export const MessageType = Enum("locationChange", "notification", "sessionExpired", "downloadFile");
 const DEFAULT_CHANNEL = "admin-extension";
 const DEFAULT_ORIGIN = "*";
-
-interface NotificationMessage {
-  messageType: typeof MessageType.notification;
-  data: ToastNotificationProps;
-}
-
-interface LocationChangeMessage {
-  messageType: typeof MessageType.locationChange;
-  data: H.Location<unknown>;
-}
-
-interface sessionExpiredMessage {
-  messageType: typeof MessageType.sessionExpired;
-}
-
-interface downloadFileMessage {
-  messageType: typeof MessageType.downloadFile;
-  data: {
-    fileBlob: Blob;
-    fileName: string;
-  };
-}
-
-export type Message = NotificationMessage | LocationChangeMessage | sessionExpiredMessage | downloadFileMessage;
-
-interface SendMessageEvent {
-  channel?: string;
-  message: Message;
-  origin?: string;
-}
+const ADMIN_CHANNEL_ID = "admin";
 
 export function sendMessageToParentWindow({
   message,
@@ -65,4 +35,53 @@ export function downloadFile({ fileBlob, fileName }: { fileBlob: Blob; fileName:
       messageType: MessageType.downloadFile,
     },
   });
+}
+
+export async function guardSendAndReceiveMessage<MessageDataType>({
+  messageToBeSent,
+  timeoutMs = 2000,
+  Codec,
+}: {
+  messageToBeSent: SendMessageEvent;
+  timeoutMs?: number;
+  Codec: ioTs.Type<MessageDataType>;
+}): Promise<MessageDataType> {
+  let dataFromParent: any = null;
+  const callback = (data: any) => {
+    dataFromParent = data;
+  };
+
+  sendMessageToParentWindow(messageToBeSent);
+  await guardListenMessage({ callback, timeoutMs, Codec });
+
+  return new Promise((resolve) => resolve(dataFromParent));
+}
+
+async function guardListenMessage<MessageDataType>({
+  callback,
+  timeoutMs,
+  Codec,
+}: {
+  callback: CallBackType;
+  timeoutMs: number;
+  Codec: ioTs.Type<MessageDataType>;
+}) {
+  const removeListener = new Promise((resolve) => {
+    return setTimeout(() => {
+      window.removeEventListener(
+        "message",
+        (message) => onAdminMessageReceived(message, callback, { adminChannelId: ADMIN_CHANNEL_ID }, Codec),
+        false
+      );
+      resolve("event listener is removed");
+    }, timeoutMs);
+  });
+
+  window.addEventListener(
+    "message",
+    (message) => onAdminMessageReceived(message, callback, { adminChannelId: ADMIN_CHANNEL_ID }, Codec),
+    false
+  );
+
+  await removeListener;
 }

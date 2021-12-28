@@ -51,12 +51,13 @@ The project will be served on `localhost:3003`
 
 Environment variables that will be read on runtime :
 
-| Environment Variables              | Optional | Description                                                        |
-| ---------------------------------- | -------- | ------------------------------------------------------------------ |
-| JUSTICE_BASE_URL                   | No       | The base url of the API which the Admin Portal will call           |
-| JUSTICE_BASE_PATH                  | No       | The base path of extension                                         |
-| JUSTICE_PUBLISHER_NAMESPACE        | Yes      | The publisher namespace                                            |
-| JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes      | For dev purpose only, the bearer token of currently logged in user |
+| Environment Variables              | Optional | Description                                                                    |
+|------------------------------------| -------- |--------------------------------------------------------------------------------|
+| JUSTICE_BASE_URL                   | No       | The base url of the API which the Admin Portal will call                       |
+| JUSTICE_BASE_PATH                  | No       | The base path of extension                                                     |
+| JUSTICE_ADMINPORTAL_URL            | No       | The url of the admin portal website. Required for cross-domain communications. |
+| JUSTICE_PUBLISHER_NAMESPACE        | Yes      | The publisher namespace                                                        |
+| JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes      | For dev purpose only, the bearer token of currently logged in user             |
 
 ## Folder Structure
 
@@ -294,9 +295,23 @@ import { t } from "src/utils/i18n/i18n";
 
 ```json
 {
-  "translationIdentifiere": "Translation Here"
+  "translationIdentifier": "Translation Here"
 }
 ```
+
+## Send and receive message
+
+The communication between Admin Portal and Admin Portal Extension is done using `postMessage` in order to successfully communicate between each other when each has a different domain than one another. If you want to send a `MessageEvent` to Admin Portal and expect a return message from it, you can use `guardSendAndReceiveMessage`. Here's how you do it:
+
+1. Add the message type [here](./src/models/iframe.ts) (if it's a new message type)
+2. Add the response's data Codec [here](./src/models/parentMessage.ts) (if it's a new response Codec)
+3. Create the message event data using [SendMessageEvent](./src/models/iframe.ts) interface
+4. Call `guardSendAndReceiveMessage` and use the message event data, Codec, and timeout, as the parameters. Timeout, here, is used to set the duration (in milliseconds) of the message listener before it is closed.
+5. The method will return the data sent by Admin Portal.
+
+Note:
+1. If you only want to send a message to Admin Portal without expecting a response, you can do step 1-3 and call `sendMessageToParentWindow` instead of `guardSendAndReceiveMessage`
+2. Make sure the handler for a certain message type is already exist in Admin Portal, especially for a new message type. Otherwise, you have to create the handler in Admin Portal beforehand
 
 ### How to test
 
