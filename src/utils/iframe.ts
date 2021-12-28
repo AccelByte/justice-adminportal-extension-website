@@ -9,7 +9,7 @@ import * as H from "history";
 import { ToastNotificationProps } from "./notification";
 import { isInIframe } from "./browserIframeSwitch";
 
-export const MessageType = Enum("locationChange", "notification", "sessionExpired");
+export const MessageType = Enum("locationChange", "notification", "sessionExpired", "downloadFile");
 const DEFAULT_CHANNEL = "admin-extension";
 const DEFAULT_ORIGIN = "*";
 
@@ -27,7 +27,15 @@ interface sessionExpiredMessage {
   messageType: typeof MessageType.sessionExpired;
 }
 
-export type Message = NotificationMessage | LocationChangeMessage | sessionExpiredMessage;
+interface downloadFileMessage {
+  messageType: typeof MessageType.downloadFile;
+  data: {
+    fileBlob: Blob;
+    fileName: string;
+  };
+}
+
+export type Message = NotificationMessage | LocationChangeMessage | sessionExpiredMessage | downloadFileMessage;
 
 interface SendMessageEvent {
   channel?: string;
@@ -40,11 +48,21 @@ export function sendMessageToParentWindow({
   channel = DEFAULT_CHANNEL,
   origin = DEFAULT_ORIGIN,
 }: SendMessageEvent) {
-  const parsedMessage = JSON.stringify({ ...message, channel });
+  const useParse = message.messageType !== MessageType.downloadFile;
+  const parsedMessage = useParse ? JSON.stringify({ ...message, channel }) : { ...message, channel };
 
   if (!isInIframe()) {
     console.log("Message to parent window ignored: ", { ...message, channel });
     return;
   }
   window.parent.postMessage(parsedMessage, origin);
+}
+
+export function downloadFile({ fileBlob, fileName }: { fileBlob: Blob; fileName: string }) {
+  sendMessageToParentWindow({
+    message: {
+      data: { fileBlob, fileName },
+      messageType: MessageType.downloadFile,
+    },
+  });
 }
