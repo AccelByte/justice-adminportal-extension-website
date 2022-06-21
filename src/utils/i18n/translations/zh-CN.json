@@ -1,4 +1,6 @@
 {
+  "nav.group.extension": "自定义功能",
+  "namespaces.namespace": "命名空间",
   "common.action": "行动",
   "common.error.401.title": "越权存取",
   "common.error.401.subTitle": "您无权访问此页面",
