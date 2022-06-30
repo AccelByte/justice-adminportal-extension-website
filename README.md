@@ -53,9 +53,9 @@ Environment variables that will be read on runtime :
 
 | Environment Variables              | Optional | Description                                                                    |
 |------------------------------------| -------- |--------------------------------------------------------------------------------|
-| JUSTICE_BASE_URL                   | No       | The base url of the API which the Admin Portal will call                       |
 | JUSTICE_BASE_PATH                  | No       | The base path of extension                                                     |
 | JUSTICE_ADMINPORTAL_URL            | No       | The url of the admin portal website. Required for cross-domain communications. |
+| JUSTICE_BASE_URL                   | Yes      | The base url of the API which the Admin Portal will call. Required if the extension want to be run without admin portal               |
 | JUSTICE_PUBLISHER_NAMESPACE        | Yes      | The publisher namespace                                                        |
 | JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes      | For dev purpose only, the bearer token of currently logged in user             |
 
@@ -136,7 +136,7 @@ URL pattern:
 `http://localhost:3003/admin-extension/namespaces/{namespace}/{moduleId}`
 
 - `namespace` : current namespace you are currently working on
-- `moduleId` : Module/SubModule's id. You can get this value from `id` in `module.json`/`submodule.json` 
+- `moduleId` : Module/SubModule's id. You can get this value from `id` in `module.json`/`submodule.json`
 
 e.g
 ```

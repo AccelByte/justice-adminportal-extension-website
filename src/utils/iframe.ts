@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021 - 2022 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
@@ -66,22 +66,38 @@ async function guardListenMessage<MessageDataType>({
   timeoutMs: number;
   Codec: ioTs.Type<MessageDataType>;
 }) {
-  const removeListener = new Promise((resolve) => {
-    return setTimeout(() => {
+  const addAndRemoveListener = new Promise((resolve) => {
+    let timeout: any = null;
+    const handleMessage = (message: MessageEvent) => {
+      onAdminMessageReceived(message, callback, { adminChannelId: ADMIN_CHANNEL_ID }, Codec)
+      // if message recived, remove listener and resolve timeout
       window.removeEventListener(
         "message",
-        (message) => onAdminMessageReceived(message, callback, { adminChannelId: ADMIN_CHANNEL_ID }, Codec),
+        handleMessage,
         false
       );
-      resolve("event listener is removed");
+      resolve(timeout)
+    }
+
+
+    window.addEventListener(
+      "message",
+      handleMessage,
+      false
+    );
+
+    // if no message received after timeout, remove listener and resolve the promise
+    timeout = setTimeout(() => {
+      window.removeEventListener(
+        "message",
+        handleMessage,
+        false
+      );
+      resolve(null);
     }, timeoutMs);
   });
 
-  window.addEventListener(
-    "message",
-    (message) => onAdminMessageReceived(message, callback, { adminChannelId: ADMIN_CHANNEL_ID }, Codec),
-    false
-  );
-
-  await removeListener;
+  const timeout: any = await addAndRemoveListener;
+  // if resolved but timeout still exist then clear timeout
+  if (timeout) clearTimeout(timeout)
 }

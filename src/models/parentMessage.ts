@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021 - 2022 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
@@ -27,3 +27,6 @@ export type IsRefreshSessionLock = ioTs.TypeOf<typeof IsRefreshSessionLock>;
 
 export const RefreshWithLock = ioTs.boolean;
 export type RefreshWithLock = ioTs.TypeOf<typeof RefreshWithLock>;
+
+export const GetSharedEnvar = ioTs.string;
+export type GetSharedEnvar = ioTs.TypeOf<typeof GetSharedEnvar>

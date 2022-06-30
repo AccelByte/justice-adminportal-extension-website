@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021 - 2022 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
@@ -14,7 +14,8 @@ export const MessageType = Enum(
   "sessionExpired",
   "downloadFile",
   "isRefreshSessionLock",
-  "refreshWithLock"
+  "refreshWithLock",
+  "getSharedEnvar"
 );
 
 interface NotificationMessage {
@@ -47,13 +48,18 @@ interface refreshWithLockMessage {
   messageType: typeof MessageType.refreshWithLock;
 }
 
+interface GetSharedEnvar {
+  messageType: typeof MessageType.getSharedEnvar;
+}
+
 export type Message =
   | NotificationMessage
   | LocationChangeMessage
   | sessionExpiredMessage
   | downloadFileMessage
   | isRefreshSessionLockMessage
-  | refreshWithLockMessage;
+  | refreshWithLockMessage
+  | GetSharedEnvar;
 
 export interface SendMessageEvent {
   channel?: string;
