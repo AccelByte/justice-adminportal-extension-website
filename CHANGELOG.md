@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.5%0D0.2.4) (2022-07-18)
+
+
+### Features
+
+* **postmessage:** EN-112 add feature to share env JUSTICE_BASE_URL ([170a9e7](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/170a9e70800929e27cb2967ff415328208efb995)), closes [#34](https://accelbyte.atlassian.net/browse/34)
+* **sidebar-devmode:** EN-113 add dev mode sidebar ([9f0a64d](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/9f0a64dad6773ab3723ec02e9ba313f5f479b713)), closes [#33](https://accelbyte.atlassian.net/browse/33)
+
 ### [0.2.4](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.4%0D0.2.3) (2022-07-04)
 
 ### [0.2.3](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.3%0D0.2.2) (2022-03-01)
