@@ -7,5 +7,3 @@ resources:
   - ./service.yaml
   - ./hpa.yaml
   - ./pdb.yaml
-  - ./ingress.yaml
-  
