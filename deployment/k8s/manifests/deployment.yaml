@@ -12,7 +12,6 @@ metadata:
     stage: ${STAGE}
     tier: frontend
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: justice-adminportal-extension-website
