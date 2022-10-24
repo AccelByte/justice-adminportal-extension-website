@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.7](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.7%0D0.2.6) (2022-10-24)
+
 ### [0.2.6](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.6%0D0.2.5) (2022-08-01)
 
 ### [0.2.5](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.5%0D0.2.4) (2022-07-18)
