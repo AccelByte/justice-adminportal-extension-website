@@ -130,6 +130,7 @@
     JUSTICE_BASE_URL=https://dev.accelbyte.io
     JUSTICE_BASE_PATH=/admin-extension
     JUSTICE_ADMINPORTAL_URL=https://dev.accelbyte.io/admin
+    JUSTICE_ADMINPORTAL_ROUTE_PREFIX=accelbyte
     JUSTICE_PUBLISHER_NAMESPACE=accelbyte
     K8S_NS=demo
     ################################################################################

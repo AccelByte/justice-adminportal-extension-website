@@ -16,5 +16,6 @@ data:
   JUSTICE_BASE_URL: {{ .Values.configMap.service.JUSTICE_BASE_URL | quote }}
   JUSTICE_BASE_PATH: {{ .Values.configMap.service.JUSTICE_BASE_PATH | default "/admin-extension" | quote }}
   JUSTICE_ADMINPORTAL_URL: {{ .Values.configMap.service.JUSTICE_ADMINPORTAL_URL | quote }}
+  JUSTICE_ADMINPORTAL_ROUTE_PREFIX: {{ .Values.configMap.service.JUSTICE_ADMINPORTAL_ROUTE_PREFIX | quote }}
   JUSTICE_PUBLISHER_NAMESPACE: {{ .Values.configMap.service.JUSTICE_PUBLISHER_NAMESPACE | quote }}
 
