@@ -51,13 +51,14 @@ The project will be served on `localhost:3003`
 
 Environment variables that will be read on runtime :
 
-| Environment Variables              | Optional | Description                                                                    |
-|------------------------------------| -------- |--------------------------------------------------------------------------------|
-| JUSTICE_BASE_PATH                  | No       | The base path of extension                                                     |
-| JUSTICE_ADMINPORTAL_URL            | No       | The url of the admin portal website. Required for cross-domain communications. |
-| JUSTICE_BASE_URL                   | Yes      | The base url of the API which the Admin Portal will call. Required if the extension want to be run without admin portal               |
-| JUSTICE_PUBLISHER_NAMESPACE        | Yes      | The publisher namespace                                                        |
-| JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes      | For dev purpose only, the bearer token of currently logged in user             |
+| Environment Variables              | Optional | Description                                                                                                             |
+|------------------------------------| -------- |-------------------------------------------------------------------------------------------------------------------------|
+| JUSTICE_BASE_PATH                  | No       | The base path of extension                                                                                              |
+| JUSTICE_ADMINPORTAL_URL            | No       | The url of the admin portal website. Required for cross-domain communications.                                          |
+| JUSTICE_ADMINPORTAL_ROUTE_PREFIX   | No       | The prefix path that will be used inside the admin portal website.                                                      |
+| JUSTICE_BASE_URL                   | Yes      | The base url of the API which the Admin Portal will call. Required if the extension want to be run without admin portal |
+| JUSTICE_PUBLISHER_NAMESPACE        | Yes      | The publisher namespace                                                                                                 |
+| JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes      | For dev purpose only, the bearer token of currently logged in user                                                      |
 
 ## Folder Structure
 
