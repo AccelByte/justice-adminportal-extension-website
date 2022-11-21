@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.8](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.8%0D0.2.7) (2022-11-21)
+
+
+### Features
+
+* CWA-202 Add route prefix for AP ([747513e](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/747513ea417f02740de78a48f0a3fd9ddaa36373))
+* CWA-202 Replace prefix value placeholder with env var value ([7551322](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/755132255ad4fbe39ecca7cf6a4e9b0047660d57))
+
+
+### CI
+
+* CWA-202 Add JUSTICE_ADMINPORTAL_ROUTE_PREFIX to deployment ([9896c5d](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/9896c5dfec8a4c5d39921c574f78a1ad520e3d4d))
+
 ### [0.2.7](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.7%0D0.2.6) (2022-10-24)
 
 ### [0.2.6](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.6%0D0.2.5) (2022-08-01)
