@@ -8,6 +8,7 @@ import { isInIframe } from "./browserIframeSwitch";
 import { onAdminMessageReceived } from "~/utils/postMessageHandler";
 import { CallBackType, MessageType, SendMessageEvent } from "~/models/iframe";
 import * as ioTs from "io-ts";
+import { useParams } from "react-router-dom";
 
 const DEFAULT_CHANNEL = "admin-extension";
 const DEFAULT_ORIGIN = "*";
@@ -101,3 +102,10 @@ async function guardListenMessage<MessageDataType>({
   // if resolved but timeout still exist then clear timeout
   if (timeout) clearTimeout(timeout)
 }
+
+export const useExtensionPrefix = () => {
+  const { namespace } = useParams<{ namespace: string }>();
+  const withPrefixUrl = (path: string) => `/namespaces/${namespace}${path}`;
+  const withPrefixPath = (path: string) => `/namespaces/:namespace${path}`;
+  return { withPrefixUrl, withPrefixPath };
+};

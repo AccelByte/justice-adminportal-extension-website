@@ -25,5 +25,6 @@
   "example.module.subModule2.itemsPage.items.title": "Items",
   "example.module.subModule2.itemsPage.items.id": "ID",
   "example.module.subModule2.itemsPage.items.name": "Name",
-  "example.module.subModule2.itemsPage.items.itemType": "Item Type"
+  "example.module.subModule2.itemsPage.items.itemType": "Item Type",
+  "loading.wait": "Please wait..."
 }

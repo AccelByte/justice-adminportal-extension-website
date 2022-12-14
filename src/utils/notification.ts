@@ -24,7 +24,7 @@ export interface ToastNotificationProps {
   appearance: ToastType;
   message: ReactNode;
   errorCode?: number;
-  defaultErrorMessage?: string;
+  defaultErrorMessage?: ReactNode;
 }
 
 export const showToastNotification = (data: ToastNotificationProps) => {
@@ -33,6 +33,8 @@ export const showToastNotification = (data: ToastNotificationProps) => {
   const notificationData: ToastNotificationProps = {
     appearance: data.appearance,
     message: stringMessage,
+    errorCode: data.errorCode,
+    defaultErrorMessage: data.defaultErrorMessage,
   };
 
   sendMessageToParentWindow({
@@ -40,7 +42,7 @@ export const showToastNotification = (data: ToastNotificationProps) => {
   });
 };
 
-export function showToastNotificationError(error: Error, defaultMessage?: string) {
+export function showToastNotificationError(error: Error, message?: ReactNode) {
   if (isAxiosNetworkError(error)) {
     return showToastNotification({ message: t("network.error.noNetwork"), appearance: ToastType.error });
   }
@@ -50,9 +52,8 @@ export function showToastNotificationError(error: Error, defaultMessage?: string
 
   return showToastNotification({
     appearance: ToastType.error,
-    message: "",
+    message: message,
     errorCode: extractServiceErrorCode(error) || 0,
-    defaultErrorMessage: defaultMessage,
   });
 }
 

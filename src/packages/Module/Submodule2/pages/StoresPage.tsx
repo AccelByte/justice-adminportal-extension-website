@@ -14,7 +14,7 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Store } from "~/api/ecommerce/models/store";
 import StoreList from "../components/StoreList";
 import { t } from "~/utils/i18n/i18n";
-import { showToastNotificationSuccess } from "~/utils/notification";
+import { showToastNotificationError, showToastNotificationSuccess } from "~/utils/notification";
 
 export const StoresPage = () => {
   const history = useHistory();
@@ -57,6 +57,8 @@ export const StoresPage = () => {
     );
     showToastNotificationSuccess(element);
     showToastNotificationSuccess(`${message} using string`);
+    showToastNotificationError(new Error(), `${message} using string`);
+    showToastNotificationError(new Error(), element);
   };
 
   return (

@@ -20,8 +20,8 @@ const Nav: React.FC = () => {
   const [namespaces, setNamespaces] = React.useState<SelectOption[]>([])
   const urlNamespace = findParamsFromPath(window.location.toString(), "namespaces")
   const [namespace, setNamespace] = React.useState<SelectOption>({label: urlNamespace, value: urlNamespace})
-  const handleChangeNamespace = (option: SelectOption) => {
-    setNamespace(option)
+  const handleChangeNamespace = (option: SelectOption | SelectOption[]) => {
+    setNamespace(option as SelectOption)
   }
   React.useEffect(() => {
     history.push(`/${combinePaths("namespaces", namespace.value)}`)

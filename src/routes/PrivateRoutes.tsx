@@ -4,16 +4,20 @@
  * and restrictions contact your company contract manager.
  */
 
-import React from "react";
+import React, { Suspense } from "react";
 import { PrivateRoute } from "./PrivateRoute";
-import { SubmoduleRoutes } from "../packages/Module/Submodule/routes/SubmoduleRoutes";
-import { Submodule2Routes } from "../packages/Module/Submodule2/routes/Submodule2Routes";
+import { SubmoduleRoutes } from "@packages/Module/Submodule/routes/SubmoduleRoutes";
+import { Submodule2Routes } from "@packages/Module/Submodule2/routes/Submodule2Routes";
+import { Loading } from "~/components/common-components";
+import { t } from "~/utils/i18n/i18n";
 
 export const PrivateRoutes = () => {
   return (
     <div className="main">
-      <PrivateRoute path={"/example-1-submodule"} component={SubmoduleRoutes} />
-      <PrivateRoute path={"/example-2-submodule"} component={Submodule2Routes} />
+      <Suspense fallback={<Loading loadingInfo={t("loading.wait")} />}>
+        <PrivateRoute path={"/example-1-submodule"} component={SubmoduleRoutes} />
+        <PrivateRoute path={"/example-2-submodule"} component={Submodule2Routes} />
+      </Suspense>
     </div>
   );
 };

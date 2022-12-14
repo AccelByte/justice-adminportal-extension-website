@@ -3,7 +3,8 @@
       "baseUrl": ".",
       "paths": {
         "~/*": ["src/*"],
-        "@packages/*": ["src/packages/*"]
+        "@packages/*": ["src/packages/*"],
+        "justice-ui-library": ["node_modules/justice-ui-library/build/index"]
       }
     }
   }
