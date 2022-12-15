@@ -42,7 +42,7 @@ export const showToastNotification = (data: ToastNotificationProps) => {
   });
 };
 
-export function showToastNotificationError(error: Error, message?: ReactNode) {
+export function showToastNotificationError(error: Error, defaultMessage?: ReactNode) {
   if (isAxiosNetworkError(error)) {
     return showToastNotification({ message: t("network.error.noNetwork"), appearance: ToastType.error });
   }
@@ -52,7 +52,7 @@ export function showToastNotificationError(error: Error, message?: ReactNode) {
 
   return showToastNotification({
     appearance: ToastType.error,
-    message: message,
+    message: translateError(error, defaultMessage),
     errorCode: extractServiceErrorCode(error) || 0,
   });
 }
@@ -61,7 +61,7 @@ export function showToastNotificationSuccess(message: ReactNode) {
   return showToastNotification({ message, appearance: ToastType.success });
 }
 
-export const translateError = (error: Error, defaultMessage?: string) => {
+export const translateError = (error: Error, defaultMessage?: ReactNode) => {
   if (isAxiosNetworkError(error)) {
     return t("network.error.noNetwork");
   }
