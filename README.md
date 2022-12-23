@@ -105,7 +105,7 @@ To create new module, please follow these steps:
 {
   "id": "example", // unique module id
   "title": "module.example.title", // translation key for module title
-  "icon": "icon-ab-sidebar-users" // icon that will be shown in AP sidebar
+  "icon": "icon-extension-accelbyte-marketplace-moderation" // icon that will be shown in AP sidebar, refer to icons in AP or public/extension-icons if enabled
 }
 ```
 
@@ -326,6 +326,23 @@ i18next use localStorage to identify active locale, so you can just add localSto
 
 ```js
 localStorage.setItem("i18nextLng");
+```
+
+## Generating New Icon
+
+Please check [here](https://accelbyte.atlassian.net/wiki/spaces/PJ/pages/2513141894/How+to+add+new+icons+to+accelicons)
+
+## Injecting Custom Extension Icon to Admin Portal
+
+1. Uncomment `icon_path` in `scripts/generateExtensionModule.js`
+2. Follow the step above `Generating New Icon`, the difference is that, you will use `public/extension-icons/extension_icons.svg` as the source
+2. copy the generated fonts to `public/extension-icons/`
+3. Modify `extension_icons.css` with the desired class name and apply it to the respective `modules.json`
+
+The css naming convention format for extension icons are:
+
+```
+.icon-extension-<client's name>-<icon name in kebab case>
 ```
 
 ## FAQs

@@ -32,6 +32,7 @@ function makeBuildObject(modules) {
     author: packageJson.author,
     prefix: "", // NOTE: placeholder will be updated later by prefix-replace.sh in docker-entrypoint.sh
     modules: modules,
+    // icon_path: "extension-icons/extension_icons.css" // uncomment to enable extension icon injection to core
   };
 }
 

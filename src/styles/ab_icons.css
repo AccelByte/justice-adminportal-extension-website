@@ -1,0 +1,322 @@
+/*
+ * Copyright (c) 2022 AccelByte Inc. All Rights Reserved.
+ * This is licensed software from AccelByte Inc, for limitations
+ * and restrictions contact your company contract manager.
+ */
+
+@font-face {
+  font-family: 'accelicons';
+  src: url('../fonts/accelicons.eot?2rgpcc');
+  src: url('../fonts/accelicons.eot?2rgpcc#iefix') format('embedded-opentype'),
+    url('../fonts/accelicons.ttf?2rgpcc') format('truetype'),
+    url('../fonts/accelicons.woff?2rgpcc') format('woff'),
+    url('../fonts/accelicons.svg?2rgpcc#accelicons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^='icon-ab-'],
+[class*=' icon-ab-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'accelicons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ab-sidebar-game:before {
+  content: '\e900';
+}
+.icon-ab-cloud-save:before {
+  content: '\e901';
+}
+.icon-ab-info-filled:before {
+  content: '\e902';
+}
+.icon-ab-exclamation-mark-filled:before {
+  content: '\e903';
+}
+.icon-ab-arrow-left:before {
+  content: '\e904';
+}
+.icon-ab-check-square-filled:before {
+  content: '\e905';
+}
+.icon-ab-warning-triangle-filled:before {
+  content: '\e906';
+}
+.icon-ab-sidebar-augments:before {
+  content: '\e907';
+}
+.icon-ab-x:before {
+  content: '\e908';
+}
+.icon-ab-namespace-check:before {
+  content: '\e909';
+}
+.icon-ab-namespace-publisher:before {
+  content: '\e90a';
+}
+.icon-ab-namespace-home:before {
+  content: '\e90b';
+}
+.icon-ab-header-sign-out:before {
+  content: '\e90c';
+}
+.icon-ab-header-roles:before {
+  content: '\e90d';
+}
+.icon-ab-header-profile-settings:before {
+  content: '\e90e';
+}
+.icon-ab-header-personal-data-requests:before {
+  content: '\e90f';
+}
+.icon-ab-header-payment-configurations:before {
+  content: '\e910';
+}
+.icon-ab-header-oauth-clients:before {
+  content: '\e911';
+}
+.icon-ab-header-login:before {
+  content: '\e912';
+}
+.icon-ab-header-legal-documents:before {
+  content: '\e913';
+}
+.icon-ab-header-app-distributions:before {
+  content: '\e914';
+}
+.icon-ab-header-age-restriction:before {
+  content: '\e915';
+}
+.icon-ab-header-admins:before {
+  content: '\e916';
+}
+.icon-ab-header-admin-email-notification:before {
+  content: '\e917';
+}
+.icon-ab-header-account-deletion-requests:before {
+  content: '\e918';
+}
+.icon-ab-header-product-keys:before {
+  content: '\e919';
+}
+.icon-ab-sidebar-achievements:before {
+  content: '\e91a';
+}
+.icon-ab-sidebar-analytics:before {
+  content: '\e91b';
+}
+.icon-ab-sidebar-campaigns:before {
+  content: '\e91c';
+}
+.icon-ab-sidebar-clans:before {
+  content: '\e91d';
+}
+.icon-ab-sidebar-configurations:before {
+  content: '\e91e';
+}
+.icon-ab-sidebar-currencies:before {
+  content: '\e91f';
+}
+.icon-ab-sidebar-direct-payment-callback:before {
+  content: '\e920';
+}
+.icon-ab-sidebar-entitlements:before {
+  content: '\e921';
+}
+.icon-ab-sidebar-leaderboard:before {
+  content: '\e922';
+}
+.icon-ab-sidebar-matchmaking:before {
+  content: '\e923';
+}
+.icon-ab-sidebar-monitoring:before {
+  content: '\e924';
+}
+.icon-ab-sidebar-notifications:before {
+  content: '\e925';
+}
+.icon-ab-sidebar-in-app-purchase:before {
+  content: '\e926';
+}
+.icon-ab-sidebar-payment-metadata:before {
+  content: '\e927';
+}
+.icon-ab-sidebar-promotions:before {
+  content: '\e928';
+}
+.icon-ab-sidebar-servers:before {
+  content: '\e929';
+}
+.icon-ab-sidebar-sessions:before {
+  content: '\e92a';
+}
+.icon-ab-sidebar-statistics:before {
+  content: '\e92b';
+}
+.icon-ab-sidebar-stores:before {
+  content: '\e92c';
+}
+.icon-ab-sidebar-users:before {
+  content: '\e92d';
+}
+.icon-ab-sidebar-wallets:before {
+  content: '\e92e';
+}
+.icon-ab-sidebar-achievement:before {
+  content: '\e92f';
+}
+.icon-ab-header-agreement-records:before {
+  content: '\e930';
+}
+.icon-ab-sidebar-reward:before {
+  content: '\e931';
+}
+.icon-ab-sidebar-subscription:before {
+  content: '\e932';
+}
+.icon-ab-user-check:before {
+  content: '\e933';
+}
+.icon-ab-sidebar-orders:before {
+  content: '\e934';
+}
+.icon-ab-sidebar-lock:before {
+  content: '\e935';
+}
+.icon-ab-sidebar-code-redemption:before {
+  content: '\e936';
+}
+.icon-ab-sidebar-ugc:before {
+  content: '\e937';
+}
+.icon-ab-sidebar-season-pass:before {
+  content: '\e938';
+}
+.icon-ab-download:before {
+  content: '\e939';
+}
+.icon-ab-header-input-validation:before {
+  content: '\e93a';
+}
+.icon-ab-wallet:before {
+  content: '\e93b';
+}
+.icon-ab-namespace:before {
+  content: '\e93c';
+}
+.icon-ab-promotion:before {
+  content: '\e93d';
+}
+.icon-ab-apps:before {
+  content: '\e93e';
+}
+.icon-ab-clients:before {
+  content: '\e93f';
+}
+.icon-ab-stats:before {
+  content: '\e940';
+}
+.icon-ab-ruleset:before {
+  content: '\e941';
+}
+.icon-ab-personal-data:before {
+  content: '\e942';
+}
+.icon-ab-user-config:before {
+  content: '\e943';
+}
+.icon-ab-leaderboard:before {
+  content: '\e944';
+}
+.icon-ab-question-mark-outlined:before {
+  content: '\e945';
+}
+.icon-ab-exclamation-mark-outlined:before {
+  content: '\e946';
+}
+.icon-ab-info-outlined:before {
+  content: '\e947';
+}
+.icon-ab-warning-triangle-outlined:before {
+  content: '\e948';
+}
+.icon-ab-x-outlined:before {
+  content: '\e949';
+}
+.icon-ab-maximize:before {
+  content: '\e94a';
+}
+.icon-ab-minimize:before {
+  content: '\e94b';
+}
+.icon-ab-sidebar-nft:before {
+  content: '\e94c';
+}
+.icon-ab-referrals:before {
+  content: '\e94d';
+}
+.icon-ab-connect-friend:before {
+  content: '\e94e';
+}
+.icon-ab-sidebar-server-off:before {
+  content: '\e94f';
+}
+.icon-ab-sessions:before {
+  content: '\e950';
+}
+.icon-ab-sidebar-legal:before {
+  content: '\e951';
+}
+.icon-ab-connect-matchmaking:before {
+  content: '\e952';
+}
+.icon-ab-historical-collection:before {
+  content: '\e953';
+}
+.icon-ab-question-mark-filled:before {
+  content: '\e954';
+}
+.icon-ab-drag-hover:before {
+  content: '\e955';
+}
+.icon-ab-site-builder:before {
+  content: '\e956';
+}
+.icon-ab-user-bans:before {
+  content: '\e957';
+}
+.icon-ab-payment-config:before {
+  content: '\e958';
+}
+.icon-ab-user-deletion:before {
+  content: '\e959';
+}
+.icon-ab-privacy:before {
+  content: '\e95a';
+}
+.icon-ab-megaphone:before {
+  content: '\e95b';
+}
+.icon-ab-x-filled:before {
+  content: '\e95c';
+}
+.icon-ab-sidebar-key:before {
+  content: '\e95d';
+}
+.icon-ab-check-square-outlined:before {
+  content: '\e95e';
+}
+.icon-ab-sidebar-campaigns-2:before {
+  content: '\e95f';
+}
