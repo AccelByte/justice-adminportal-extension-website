@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.9](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.9%0D0.2.8) (2023-01-03)
+
+
+### Features
+
+* **extension-website:** fix error toast notification and add common validation error message ([6df7c1f](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/6df7c1fe2a1a15a0b2d84dbfb237b406c4fa21a5)), closes [#49](https://accelbyte.atlassian.net/browse/49)
+
+
+### Bug Fixes
+
+* **extension-website:** update extension website ([9068f9c](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/9068f9c41fe8017bf2b847310333e60b2091a960)), closes [#48](https://accelbyte.atlassian.net/browse/48)
+
 ### [0.2.8](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.8%0D0.2.7) (2022-11-21)
 
 
