@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.10](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.10%0D0.2.9) (2023-01-16)
+
+
+### Features
+
+* **icons:** add basic icons & able to inject icons into AP core CEC-837 ([9ab707b](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/9ab707b3ea5527f51be01daa0e3ba9242c16f654)), closes [#50](https://accelbyte.atlassian.net/browse/50)
+
+
+### Bug Fixes
+
+* **extension-icon:** fix extension icon in index.html ([a29e535](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/a29e535c5315b4d92be54a198f23a0eceaccb7eb)), closes [#51](https://accelbyte.atlassian.net/browse/51)
+
 ### [0.2.9](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.9%0D0.2.8) (2023-01-03)
 
 
