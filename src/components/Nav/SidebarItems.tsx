@@ -13,7 +13,7 @@ import { ExtensionManifest } from "~/api/misc/models/extension";
 import { Spinner } from "justice-ui-library";
 import { getCurrentLanguage, t } from "~/utils/i18n/i18n";
 import { appendSlashToStringStart, combinePaths } from "~/utils/url";
-import { useExtensionPermissionGuard } from "justice-js-common-utils";
+import { useExtensionPermissionGuard, AdminUser as CommonUtilsAdminUser } from "justice-js-common-utils";
 import userSessionApi from "../../api/services/userSessionApi";
 import { SidebarNavLink } from "./SidebarNavLinks";
 import { SidebarCollapsibleTrigger } from "./SidebarCollapsibleTrigger";
@@ -48,7 +48,7 @@ const ExtensionSidebarItemGroup = ({ namespace }: { namespace: string }) => {
   const user = userSessionApi.getUserData();
   const { isModuleShown, isSubmoduleShown } = useExtensionPermissionGuard({
     currentNamespace: namespace,
-    user
+    user: user as CommonUtilsAdminUser,
   });
 
   React.useEffect(() => {

@@ -36,7 +36,6 @@ export const AdminUser = ioTs.intersection([
     bans: ioTs.array(AccountBan),
     country: ioTs.string,
     createdAt: ioTs.string,
-    dateOfBirth: ioTs.string,
     displayName: ioTs.string,
     emailAddress: ioTs.string,
     emailVerified: ioTs.boolean,
@@ -52,12 +51,14 @@ export const AdminUser = ioTs.intersection([
     roles: ioTs.array(ioTs.string),
   }),
   ioTs.partial({
+    dateOfBirth: ioTs.string,
     newEmailAddress: ioTs.string,
     phoneNumber: ioTs.string,
     platformId: ioTs.string,
     platformUserId: ioTs.string,
     userName: ioTs.string,
     deletionStatus: ioTs.boolean,
+    platformDisplayName: ioTs.string,
   }),
 ]);
 export type AdminUser = ioTs.TypeOf<typeof AdminUser>;
