@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.12](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.12%0D0.2.11) (2023-03-13)
+
+
+### Bug Fixes
+
+* **extension:** add client name for sidebar menu ([b567f0e](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/b567f0e51196cd28426b8386e778066157a5a8d3)), closes [#53](https://accelbyte.atlassian.net/browse/53)
+* **user:** update AdminUser response model ([0308060](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/commits/03080605a262cb6ab9cd2228c6bd5b292f2aaf3b)), closes [#54](https://accelbyte.atlassian.net/browse/54)
+
 ### [0.2.11](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.11%0D0.2.10) (2023-02-13)
 
 ### [0.2.10](https://bitbucket.org/accelbyte/justice-adminportal-extension-website/branches/compare/0.2.10%0D0.2.9) (2023-01-16)
