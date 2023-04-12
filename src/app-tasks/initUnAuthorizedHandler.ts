@@ -5,12 +5,12 @@
  */
 
 import axios, { AxiosError } from "axios";
-import { addGlobalRequestInterceptors, addGlobalResponseInterceptors } from "../api/networkManager";
 import { sendMessageToParentWindow } from "~/utils/iframe";
 import { sleepAsync } from "~/utils/common";
 import { withAdminPortalClient } from "~/utils/adminPortalClient";
 import { MessageType } from "~/models/iframe";
 import { isInIframe } from "~/utils/browserIframeSwitch";
+import { injectRequestInterceptors, injectResponseInterceptors } from "@accelbyte/sdk";
 
 const getIsRefreshSessionLock = () => {
   if (isInIframe()) {
@@ -35,7 +35,7 @@ const adminPortalRefreshWithLock = () => {
 };
 
 const initOnUnAuthorizedHandler = () => {
-  addGlobalRequestInterceptors(
+  injectRequestInterceptors(
     async (config) => {
       const isRefreshSessionLock = await getIsRefreshSessionLock();
       while (isRefreshSessionLock) {
@@ -47,7 +47,7 @@ const initOnUnAuthorizedHandler = () => {
       return Promise.reject(error);
     }
   );
-  addGlobalResponseInterceptors(
+  injectResponseInterceptors(
     (response) => {
       return response;
     },

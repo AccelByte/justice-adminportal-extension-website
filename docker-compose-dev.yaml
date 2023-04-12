@@ -6,7 +6,7 @@ version: "3"
 services:
   web:
     image: justice-adminportal-extension-website-builder
-    command: bash -c "./scripts/env-guard.sh && yarn start"
+    command: bash -c "./scripts/env-guard.sh && yarn run dev"
     volumes:
       - ${PWD:-./}:/workspace/justice-adminportal-extension-website
     working_dir: /workspace/justice-adminportal-extension-website
@@ -19,4 +19,4 @@ services:
       - JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE=${JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE}
       - SHELL=/bin/bash
     ports:
-      - "3003:3000"
+      - "3003:3003"

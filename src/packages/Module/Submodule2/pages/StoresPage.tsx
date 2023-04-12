@@ -11,10 +11,10 @@ import { RequestType } from "~/api/types";
 import classNames from "classnames";
 import { fetchStores } from "~/api/ecommerce/store";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { Store } from "~/api/ecommerce/models/store";
 import StoreList from "../components/StoreList";
 import { t } from "~/utils/i18n/i18n";
 import { showToastNotificationError, showToastNotificationSuccess } from "~/utils/notification";
+import { Store } from "~/api/ecommerce/models/store";
 
 export const StoresPage = () => {
   const history = useHistory();

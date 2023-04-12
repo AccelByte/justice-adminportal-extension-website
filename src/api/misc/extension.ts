@@ -1,20 +1,18 @@
 /*
- * Copyright (c) 2022 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2022-2023 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
 
-import { Network } from "~/api/networkManager";
 import { globalVar } from "~/constants/env";
-import { guardNetworkCall } from "~/api/networkCallTypeguard";
 import { ExtensionManifest, ExtensionManifestDecodeError } from "./models/extension";
+import { AxiosInstance } from "axios";
+import { Validate } from "@accelbyte/sdk";
 
-export const fetchExtensionManifest = (network: Network) => {
+export const fetchExtensionManifest = (network: AxiosInstance) => {
   const extensionURL = globalVar.JUSTICE_BASE_PATH;
-  return guardNetworkCall(
+  return Validate.responseType<ExtensionManifest>(
     () => network.get(`${extensionURL}/extension-manifest.json`),
-    ExtensionManifest,
-    ExtensionManifestDecodeError,
-    (error) => error
+    ExtensionManifest
   );
 };

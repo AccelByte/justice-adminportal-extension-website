@@ -7,7 +7,7 @@
 import { isInIframe } from "./browserIframeSwitch";
 import { onAdminMessageReceived } from "~/utils/postMessageHandler";
 import { CallBackType, MessageType, SendMessageEvent } from "~/models/iframe";
-import * as ioTs from "io-ts";
+import { z } from "zod";
 import { useParams } from "react-router-dom";
 
 const DEFAULT_CHANNEL = "admin-extension";
@@ -45,7 +45,7 @@ export async function guardSendAndReceiveMessage<MessageDataType>({
 }: {
   messageToBeSent: SendMessageEvent;
   timeoutMs?: number;
-  Codec: ioTs.Type<MessageDataType>;
+  Codec: z.ZodType<MessageDataType>;
 }): Promise<MessageDataType> {
   let dataFromParent: any = null;
   const callback = (data: any) => {
@@ -65,42 +65,29 @@ async function guardListenMessage<MessageDataType>({
 }: {
   callback: CallBackType;
   timeoutMs: number;
-  Codec: ioTs.Type<MessageDataType>;
+  Codec: z.ZodType<MessageDataType>;
 }) {
   const addAndRemoveListener = new Promise((resolve) => {
     let timeout: any = null;
     const handleMessage = (message: MessageEvent) => {
-      onAdminMessageReceived(message, callback, { adminChannelId: ADMIN_CHANNEL_ID }, Codec)
+      onAdminMessageReceived(message, callback, { adminChannelId: ADMIN_CHANNEL_ID }, Codec);
       // if message recived, remove listener and resolve timeout
-      window.removeEventListener(
-        "message",
-        handleMessage,
-        false
-      );
-      resolve(timeout)
-    }
+      window.removeEventListener("message", handleMessage, false);
+      resolve(timeout);
+    };
 
-
-    window.addEventListener(
-      "message",
-      handleMessage,
-      false
-    );
+    window.addEventListener("message", handleMessage, false);
 
     // if no message received after timeout, remove listener and resolve the promise
     timeout = setTimeout(() => {
-      window.removeEventListener(
-        "message",
-        handleMessage,
-        false
-      );
+      window.removeEventListener("message", handleMessage, false);
       resolve(null);
     }, timeoutMs);
   });
 
   const timeout: any = await addAndRemoveListener;
   // if resolved but timeout still exist then clear timeout
-  if (timeout) clearTimeout(timeout)
+  if (timeout) clearTimeout(timeout);
 }
 
 export const useExtensionPrefix = () => {

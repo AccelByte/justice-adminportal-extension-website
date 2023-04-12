@@ -9,12 +9,12 @@ import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Card, LoadingOrErrorWrapper, Page, Pagination } from "justice-ui-library";
 import classNames from "classnames";
 import { RequestType } from "~/api/types";
-import { ItemResponse } from "~/api/ecommerce/models/item";
 import networkManager from "~/api/networkManager";
 import { fetchItemsByCriteria, FetchItemsByCriteriaParams } from "~/api/ecommerce/item";
 import { parse } from "query-string";
 import ItemList from "../components/ItemList";
 import { t } from "~/utils/i18n/i18n";
+import { ItemResponse } from "~/api/ecommerce/models/item";
 
 export const ItemsPage = () => {
   const history = useHistory();
@@ -63,7 +63,13 @@ export const ItemsPage = () => {
             {items.data && (
               <>
                 <ItemList items={items.data.data} />
-                <Pagination paging={items.data.paging} changePage={onChangePage} />
+                <Pagination
+                  paging={{
+                    next: items.data.paging?.next || undefined,
+                    previous: items.data.paging?.previous || undefined,
+                  }}
+                  changePage={onChangePage}
+                />
               </>
             )}
           </LoadingOrErrorWrapper>

@@ -6,20 +6,32 @@
 
 import { AxiosError, AxiosResponse } from "axios";
 
+/**
+ * @deprecated This type is kept for old features. Please use `Validate` from `@accelbyte/sdk` instead.
+ */
 export type WrapperResultSuccess<ResponseDataType> = {
   response: AxiosResponse<ResponseDataType>;
   error: null;
 };
 
+/**
+ * @deprecated This type is kept for old features. Please use `Validate` from `@accelbyte/sdk` instead.
+ */
 export type WrapperResultError<ErrorType> = {
   response: null;
   error: ErrorType | AxiosError;
 };
 
+/**
+ * @deprecated This type is kept for old features. Please use `Validate` from `@accelbyte/sdk` instead.
+ */
 export type WrapperResult<ResponseDataType, ErrorType> =
   | WrapperResultSuccess<ResponseDataType>
   | WrapperResultError<ErrorType>;
 
+/**
+ * @deprecated This function is kept for old features. Please use `Validate` from `@accelbyte/sdk` instead.
+ */
 export async function wrapNetworkCall<ResponseDataType, ErrorType>(
   networkCallFunction: () => Promise<AxiosResponse<ResponseDataType>>,
   transformError: (error: Error) => Promise<ErrorType> | ErrorType

@@ -51,14 +51,14 @@ The project will be served on `localhost:3003`
 
 Environment variables that will be read on runtime :
 
-| Environment Variables              | Optional | Description                                                                                                             |
-|------------------------------------| -------- |-------------------------------------------------------------------------------------------------------------------------|
-| JUSTICE_BASE_PATH                  | No       | The base path of extension                                                                                              |
-| JUSTICE_ADMINPORTAL_URL            | No       | The url of the admin portal website. Required for cross-domain communications.                                          |
-| JUSTICE_ADMINPORTAL_ROUTE_PREFIX   | No       | The prefix path that will be used inside the admin portal website.                                                      |
-| JUSTICE_BASE_URL                   | Yes      | The base url of the API which the Admin Portal will call. Required if the extension want to be run without admin portal |
-| JUSTICE_PUBLISHER_NAMESPACE        | Yes      | The publisher namespace                                                                                                 |
-| JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes      | For dev purpose only, the bearer token of currently logged in user                                                      |
+| Environment Variables | Optional | Description |
+| --- | --- | --- |
+| JUSTICE_BASE_PATH | No | The base path of extension |
+| JUSTICE_ADMINPORTAL_URL | No | The url of the admin portal website. Required for cross-domain communications. |
+| JUSTICE_ADMINPORTAL_ROUTE_PREFIX | No | The prefix path that will be used inside the admin portal website. |
+| JUSTICE_BASE_URL | Yes | The base url of the API which the Admin Portal will call. Required if the extension want to be run without admin portal |
+| JUSTICE_PUBLISHER_NAMESPACE | Yes | The publisher namespace |
+| JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE | Yes | For dev purpose only, the bearer token of currently logged in user |
 
 ## Folder Structure
 
@@ -133,13 +133,13 @@ To create new submodule, please follow these steps:
 
 #### How to access your page directly in web browser
 
-URL pattern:
-`http://localhost:3003/admin-extension/namespaces/{namespace}/{moduleId}`
+URL pattern: `http://localhost:3003/admin-extension/namespaces/{namespace}/{moduleId}`
 
 - `namespace` : current namespace you are currently working on
 - `moduleId` : Module/SubModule's id. You can get this value from `id` in `module.json`/`submodule.json`
 
 e.g
+
 ```
 http://localhost:3003/admin-extension/namespaces/accelbyte/example
 http://localhost:3003/admin-extension/namespaces/accelbyte/example-submodule
@@ -178,7 +178,9 @@ const SomeComponent = () => (
 
 ## Network Call
 
-We do network call with [axios](https://github.com/axios/axios) and runtime checking with [io-ts](https://github.com/gcanti/io-ts). In summary this is the step on how to do network call.
+> **WARNING**: `io-ts` and `guardNetworkCall` are still available only for old response models that are already exist before vite update. They are deprecated and will soon be removed completely. For future work, please use `zod` and `Validate.responseType` instead as described below.
+
+We do network call with [axios](https://github.com/axios/axios) and runtime checking with [zod](https://github.com/colinhacks/zod). In summary this is the step on how to do network call.
 
 1. Create response model
 2. Create network call utility
@@ -187,54 +189,50 @@ We do network call with [axios](https://github.com/axios/axios) and runtime chec
 
 ### Create Response Model
 
-We use runtime checking with `io-ts` to make sure we get expected response data. Please check [io-ts](https://github.com/gcanti/io-ts) for complete guidelines.
+We use runtime checking with `zod` to make sure we get expected response data. Please check [zod](https://github.com/colinhacks/zod) for complete guidelines.
 
 ```typescript
-export const Item = ioTs.intersection([
-  ioTs.type({
-    itemId: string,
+export const Item = z.intersection(
+  z.object({
+    itemId: z.string(),
   }),
-  ioTs.partial({
-    description: ioTs.string,
-  }),
-]);
-export type Item = ioTs.TypeOf<typeof Item>;
+  z
+    .object({
+      description: z.string(),
+    })
+    .partial()
+);
+export type Item = z.TypeOf<typeof Item>;
 
 export class ItemDecodeError extends DecodeError {}
 ```
 
 ### Create Network Call Utility
 
-We mainly use `guardNetworkCall` to guard a network call. This function handles network call and do runtime checking.
+We mainly use `responseType` in `Validate` from [accelbyte-web-sdk](https://github.com/AccelByte/accelbyte-web-sdk) to guard a network call. This function handles network call and do runtime checking.
 
 `guardNetworkCall` has 4 parameters:
 
 1. Network call callback, this callback is expected to return a `AxiosResponse`
 2. Response model, the function will do runtime check to validate this model and the response data
-3. DecodeError class, this class will be thrown when response data and response model is mismatch
-4. transform error callback, change your error with this callback
 
 `guardNetworkCall` will always has this return object
 
 ```typescript
-const { response, error } = await guardNetworkCall(...params);
+const { response, error } = await Validate.responseType(...params);
 ```
 
-`response` will be null when an error thrown inside `guardNetworkCall` and vice versa. Any error thrown will be in `error` (network call error like 400, runtime check error).
+`response` will be null when an error thrown inside `responseType` and vice versa. Any error thrown will be in `error` (network call error like 400, runtime check error).
 
 #### Network Call Utility
 
 ```typescript
-import * as ioTs from "io-ts";
-import { guardNetworkCall } from "src/api/networkCallTypeguard";
+import { z } from "zod";
+import { Validate } from "@accelbyte/sdk";
+import { AxiosInstance } from "axios";
 
-export function fetchSomething(network: Network, namespace: string) {
-  return guardNetworkCall(
-    () => network.get(`/endpoint`),
-    ioTs.array(Item),
-    ItemDecodeError,
-    (error) => error
-  );
+export function fetchSomething(network: AxiosInstance, namespace: string) {
+  return Validate.responseType(() => network.get(`/endpoint`), z.array(Item));
 }
 ```
 
@@ -311,6 +309,7 @@ The communication between Admin Portal and Admin Portal Extension is done using 
 5. The method will return the data sent by Admin Portal.
 
 Note:
+
 1. If you only want to send a message to Admin Portal without expecting a response, you can do step 1-3 and call `sendMessageToParentWindow` instead of `guardSendAndReceiveMessage`
 2. Make sure the handler for a certain message type is already exist in Admin Portal, especially for a new message type. Otherwise, you have to create the handler in Admin Portal beforehand
 
@@ -336,8 +335,8 @@ Please check [here](https://accelbyte.atlassian.net/wiki/spaces/PJ/pages/2513141
 
 1. Uncomment `icon_path` in `scripts/generateExtensionModule.js`
 2. Follow the step above `Generating New Icon`, the difference is that, you will use `public/extension-icons/extension_icons.svg` as the source
-2. copy the generated fonts to `public/extension-icons/`
-3. Modify `extension_icons.css` with the desired class name and apply it to the respective `modules.json`
+3. copy the generated fonts to `public/extension-icons/`
+4. Modify `extension_icons.css` with the desired class name and apply it to the respective `modules.json`
 
 The css naming convention format for extension icons are:
 

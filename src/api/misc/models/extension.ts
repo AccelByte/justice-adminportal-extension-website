@@ -1,58 +1,64 @@
 /*
- * Copyright (c) 2021 - 2022 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021-2023 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
 
-import * as ioTs from "io-ts";
+import { z } from "zod";
 import { RolePermission } from "../../iam/models/role";
 
-export const ExtensionSubModule = ioTs.intersection([
-  ioTs.type({
-    id: ioTs.string,
-    title: ioTs.string,
-    isEnabled: ioTs.boolean,
+export const ExtensionSubModule = z.intersection(
+  z.object({
+    id: z.string(),
+    title: z.string(),
+    isEnabled: z.boolean(),
     permission: RolePermission,
   }),
-  ioTs.partial({
-    allowedNamespaces: ioTs.array(ioTs.string),
-  }),
-]);
-export type ExtensionSubModule = ioTs.TypeOf<typeof ExtensionSubModule>;
+  z
+    .object({
+      allowedNamespaces: z.array(z.string()),
+    })
+    .partial()
+);
+export type ExtensionSubModule = z.TypeOf<typeof ExtensionSubModule>;
 
-export const APIExtensionSubModule = ioTs.intersection([
-  ioTs.type({
-    id: ioTs.string,
-    title: ioTs.record(ioTs.string, ioTs.string),
-    isEnabled: ioTs.boolean,
+export const APIExtensionSubModule = z.intersection(
+  z.object({
+    id: z.string(),
+    title: z.record(z.string(), z.string()),
+    isEnabled: z.boolean(),
     permission: RolePermission,
   }),
-  ioTs.partial({
-    allowedNamespaces: ioTs.array(ioTs.string),
-  }),
-]);
-export type APIExtensionSubModule = ioTs.TypeOf<typeof APIExtensionSubModule>;
+  z
+    .object({
+      allowedNamespaces: z.array(z.string()),
+    })
+    .partial()
+);
+export type APIExtensionSubModule = z.TypeOf<typeof APIExtensionSubModule>;
 
-export const ExtensionModule = ioTs.intersection([
-  ioTs.type({
-    id: ioTs.string,
-    title: ioTs.record(ioTs.string, ioTs.string),
-    icon: ioTs.string,
-    isEnabled: ioTs.boolean,
-    subModules: ioTs.array(APIExtensionSubModule),
+export const ExtensionModule = z.intersection(
+  z.object({
+    id: z.string(),
+    title: z.record(z.string(), z.string()),
+    icon: z.string(),
+    isEnabled: z.boolean(),
+    subModules: z.array(APIExtensionSubModule),
   }),
-  ioTs.partial({
-    permission: RolePermission,
-  }),
-]);
-export type ExtensionModule = ioTs.TypeOf<typeof ExtensionModule>;
+  z
+    .object({
+      permission: RolePermission,
+    })
+    .partial()
+);
+export type ExtensionModule = z.TypeOf<typeof ExtensionModule>;
 
-export const ExtensionManifest = ioTs.type({
-  name: ioTs.string,
-  author: ioTs.string,
-  modules: ioTs.array(ExtensionModule),
+export const ExtensionManifest = z.object({
+  name: z.string(),
+  author: z.string(),
+  modules: z.array(ExtensionModule),
 });
-export type ExtensionManifest = ioTs.TypeOf<typeof ExtensionManifest>;
+export type ExtensionManifest = z.TypeOf<typeof ExtensionManifest>;
 
 export class ExtensionManifestDecodeError extends Error {
   constructor(message?: string) {

@@ -7,7 +7,7 @@
 import { AxiosError } from "axios";
 import { DecodeError } from "./error";
 
-export function isAxiosError(isError: any): isError is AxiosError {
+export function isAxiosError(isError: any): isError is AxiosError<any> {
   return !!isError && !!(isError as AxiosError).config;
 }
 
@@ -16,7 +16,7 @@ export function isAxiosNetworkError(error: unknown) {
 }
 
 export function isAxiosServerError(error: unknown) {
-  return isAxiosError(error) && error.response && (error.response.status >= 500 && error.response.status <= 599);
+  return isAxiosError(error) && error.response && error.response.status >= 500 && error.response.status <= 599;
 }
 
 export function isDecodeError(error: unknown) {

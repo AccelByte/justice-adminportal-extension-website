@@ -5,28 +5,30 @@
  */
 
 import { Enum } from "justice-ui-library";
-import * as ioTs from "io-ts";
+import { z } from "zod";
 
 // define parent message type
 export const ParentMessageType = Enum("isRefreshSessionLock", "refreshWithLock");
 
-export const ParentMessageData = ioTs.intersection([
-  ioTs.partial({
-    channel: ioTs.string,
+export const ParentMessageData = z.intersection(
+  z.object({
+    data: z.any(),
+    messageType: z.string(),
   }),
-  ioTs.type({
-    data: ioTs.any,
-    messageType: ioTs.string,
-  }),
-]);
-export type ParentMessageData = ioTs.TypeOf<typeof ParentMessageData>;
+  z
+    .object({
+      channel: z.string(),
+    })
+    .partial()
+);
+export type ParentMessageData = z.TypeOf<typeof ParentMessageData>;
 
 // define parent message data type
-export const IsRefreshSessionLock = ioTs.boolean;
-export type IsRefreshSessionLock = ioTs.TypeOf<typeof IsRefreshSessionLock>;
+export const IsRefreshSessionLock = z.boolean();
+export type IsRefreshSessionLock = z.TypeOf<typeof IsRefreshSessionLock>;
 
-export const RefreshWithLock = ioTs.boolean;
-export type RefreshWithLock = ioTs.TypeOf<typeof RefreshWithLock>;
+export const RefreshWithLock = z.boolean();
+export type RefreshWithLock = z.TypeOf<typeof RefreshWithLock>;
 
-export const GetSharedEnvar = ioTs.string;
-export type GetSharedEnvar = ioTs.TypeOf<typeof GetSharedEnvar>
+export const GetSharedEnvar = z.string();
+export type GetSharedEnvar = z.TypeOf<typeof GetSharedEnvar>;

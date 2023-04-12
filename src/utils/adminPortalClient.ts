@@ -21,7 +21,7 @@ export const getAdminPortalClient = (): AdminPortalClient | undefined => {
 };
 
 const isRefreshSessionLockPostMessage = async (): Promise<boolean> => {
-  const isRefreshSessionLockResult = await guardSendAndReceiveMessage({
+  const isRefreshSessionLockResult = await guardSendAndReceiveMessage<boolean>({
     messageToBeSent: { message: { messageType: MessageType.isRefreshSessionLock } },
     timeoutMs: 1000,
     Codec: IsRefreshSessionLock,
@@ -31,7 +31,7 @@ const isRefreshSessionLockPostMessage = async (): Promise<boolean> => {
 };
 
 const refreshWithLockPostMessage = async (): Promise<boolean> => {
-  const refreshWithLockResult = await guardSendAndReceiveMessage({
+  const refreshWithLockResult = await guardSendAndReceiveMessage<boolean>({
     messageToBeSent: { message: { messageType: MessageType.refreshWithLock } },
     timeoutMs: 1000,
     Codec: RefreshWithLock,

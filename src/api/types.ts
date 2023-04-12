@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021-2023 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
 
+import { z } from "zod";
 import * as ioTs from "io-ts";
 
 export type UnionFromTuple<T> = T extends (infer U)[] ? U : never;
@@ -35,8 +36,17 @@ const Paging = ioTs.partial({
   next: ioTs.string,
   previous: ioTs.string,
 });
-
 export type Paging = ioTs.TypeOf<typeof Paging>;
+
+const ZodPaging = z
+  .object({
+    first: z.string(),
+    last: z.string(),
+    next: z.string(),
+    previous: z.string(),
+  })
+  .partial();
+export type ZodPaging = z.TypeOf<typeof ZodPaging>;
 
 export const ResponseBodyWithPagination = <C extends ioTs.Mixed>(dataCodec: C) =>
   ioTs.intersection([
@@ -49,6 +59,20 @@ export const ResponseBodyWithPagination = <C extends ioTs.Mixed>(dataCodec: C) =
       total: ioTs.number,
     }),
   ]);
+
+export const ZodResponseBodyWithPagination = <C extends z.ZodTypeAny>(dataCodec: C) =>
+  z.intersection(
+    z.object({
+      data: dataCodec,
+      paging: ZodPaging,
+    }),
+    z
+      .object({
+        totalData: z.number(),
+        total: z.number(),
+      })
+      .partial()
+  );
 
 export type ResponseBodyWithPagination<T> = {
   data: T;

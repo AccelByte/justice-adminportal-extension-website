@@ -7,8 +7,7 @@
 import { globalVar } from "~/constants/env";
 import { ParentMessageData } from "~/models/parentMessage";
 import { CallBackType } from "~/models/iframe";
-import * as ioTs from "io-ts";
-import { reporter } from "io-ts-reporters";
+import { z } from "zod";
 
 interface ParentData {
   adminChannelId: string;
@@ -18,7 +17,7 @@ export const onAdminMessageReceived = <MessageDataType>(
   message: MessageEvent,
   callback: CallBackType,
   parentData: ParentData,
-  Codec: ioTs.Type<MessageDataType>
+  Codec: z.ZodType<MessageDataType>
 ) => {
   try {
     const messageData = getMessageDataOrThrowError(message, parentData, Codec);
@@ -32,7 +31,7 @@ export const onAdminMessageReceived = <MessageDataType>(
 const getMessageDataOrThrowError = <MessageDataType>(
   message: MessageEvent,
   parentData: ParentData,
-  Codec: ioTs.Type<MessageDataType>
+  Codec: z.ZodType<MessageDataType>
 ): MessageDataType => {
   const { adminChannelId } = parentData;
 
@@ -52,10 +51,11 @@ const getMessageDataOrThrowError = <MessageDataType>(
   return validateMessageData(messageData.data, Codec);
 };
 
-const validateMessageData = <MessageDataType>(data: unknown, Codec: ioTs.Type<MessageDataType>): MessageDataType => {
-  if (!Codec.is(data)) {
-    console.error(reporter(Codec.decode(data)).join(" "));
-    throw new Error("Unrecognized data type.");
+const validateMessageData = <MessageDataType>(data: unknown, Codec: z.ZodType<MessageDataType>): MessageDataType => {
+  const decodeResult = Codec.safeParse(data);
+  if (!decodeResult.success) {
+    console.error(decodeResult.error.issues);
+    throw new Error("unrecognized data type.");
   }
-  return data;
+  return decodeResult.data;
 };

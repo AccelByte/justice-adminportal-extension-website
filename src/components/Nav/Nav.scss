@@ -3,7 +3,6 @@
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
- @import "../../styles/variables.scss";
 
 .nav-panel {
   display: flex;
@@ -43,7 +42,7 @@
       }
     }
     .links a {
-      color: $sidebar-color--link--secondary;;
+      color: $sidebar-color--link--secondary;
     }
   }
   .namespace-selector {
@@ -51,13 +50,13 @@
     padding: 10px 20px;
     margin-bottom: 10px;
     align-items: center;
-    .simplebar-track{
+    .simplebar-track {
       background: none;
     }
-    .title{
+    .title {
       color: $sidebar-color--link--secondary;
       font-size: 12px;
-      margin-top:16px;
+      margin-top: 16px;
     }
     &:hover {
       .react-select__control {
@@ -181,7 +180,6 @@
         color: $semantic-yellow-80;
         font-size: 0.625rem;
       }
-
     }
   }
   .Collapsible__trigger {
@@ -240,8 +238,10 @@
 
 .styled-atlaskit-select__control {
   &:not(:hover) {
-    .styled-atlaskit-select__placeholder, .styled-atlaskit-select__value-container div, .styled-atlaskit-select div.styled-atlaskit-select__option {
-      color: white
+    .styled-atlaskit-select__placeholder,
+    .styled-atlaskit-select__value-container div,
+    .styled-atlaskit-select div.styled-atlaskit-select__option {
+      color: white;
     }
   }
 }

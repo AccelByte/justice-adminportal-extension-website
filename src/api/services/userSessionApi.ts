@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021-2023 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
@@ -18,7 +18,7 @@ import {
   getCurrentUserRoles,
   getRoleIdsByNamespace,
   isUserHasAdminRole,
-} from "justice-js-common-utils";
+} from "@accelbyte/validator";
 
 export const PERSIST_USER_DATA_KEY = "user";
 
