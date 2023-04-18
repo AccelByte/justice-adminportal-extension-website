@@ -30,8 +30,8 @@ function makeBuildObject(modules) {
   return {
     name: packageJson.name,
     author: packageJson.author,
-    clientName: packageJson.clientName,
-    prefix: "", // NOTE: placeholder will be updated later by prefix-replace.sh in docker-entrypoint.sh
+    clientName: packageJson.clientName, // NOTE: placeholder will be updated later by extension-manifest-replacer.sh in docker-entrypoint.sh
+    prefix: "", // NOTE: placeholder will be updated later by extension-manifest-replacer.sh in docker-entrypoint.sh
     modules: modules,
     // icon_path: "extension-icons/extension_icons.css" // uncomment to enable extension icon injection to core
   };

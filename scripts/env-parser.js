@@ -11,6 +11,7 @@ const envVarKeys = [
   "JUSTICE_ADMINPORTAL_URL",
   "JUSTICE_PUBLISHER_NAMESPACE",
   "JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE",
+  "EXTENSION_CLIENT_NAME"
 ];
 
 exports.getAvailableEnvVars = function getAvailableEnvVars() {
