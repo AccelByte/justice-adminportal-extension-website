@@ -2,7 +2,7 @@
   "name": "justice-adminportal-extension-website",
   "author": "Accelbyte Inc.",
   "clientName": "Accelbyte",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "private": true,
   "homepage": "https://dev.accelbyte.io/admin-extension",
   "scripts": {
