@@ -1,12 +1,44 @@
 /*!
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
- * This is licensed software from AccelByte Inc, for limitations
- * and restrictions contact your company contract manager.
+ *
+ *  * Copyright (c) 2021 - 2022 AccelByte Inc. All Rights Reserved.
+ *  * This is licensed software from AccelByte Inc, for limitations
+ *  * and restrictions contact your company contract manager.
+ *
  */
 
-$base-10: #f5f6f8;
-$base-120: #232831;
-$base-80: #687792;
+ $base-10: #f5f6f8;
+ $base-120: #232831;
+ $base-120: #232831;
+ $base-80: #687792;
+ $base-white: #ffffff;
+ $base-140: #15181d;
+ $base-110: #373f4e;
+ $brand-80: #0b6cff;
+ $base-40: #b8bfcd;
+ $base-90: #5a677f;
+ $base-70: #7b89a1;
+ $base-60: #909bb0;
+ $base-50: #a4adbe;
+ $semantic-yellow-80: #f1a20a;
 
-$color--text--primary: $base-120;
-$color--text--secondary: $base-80;
+ // Project Colors
+ $color--text--primary: $base-120;
+ $color--text--secondary: $base-80;
+ $color--text--tertiary: $base-white;
+
+ // Sidebar
+ $sidebar-color--text: $color--text--tertiary;
+ $sidebar-backgroundColor--scrollbar: $base-140;
+
+ // Sidebar Publisher Namespace
+ $sidebar-header-color--primary: $base-white;
+ $sidebar-color--link--primary: $base-40;
+ $sidebar-backgroundColor--primary: $base-140;
+ $sidebar-backgroundColor--hovered--primary: $base-110;
+ $sidebar-backgroundColor--active--primary: $brand-80;
+
+ // Sidebar Game Namespace
+ $sidebar-color--link--secondary: $base-50;
+ $sidebar-backgroundColor--secondary: $base-90;
+ $sidebar-backgroundColor--hovered--secondary: $base-70;
+ $sidebar-backgroundColor--active--secondary: $base-60;

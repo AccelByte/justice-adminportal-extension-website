@@ -17,6 +17,9 @@ function getCodecErrorReport<A>(res: AxiosResponse<unknown>, Codec: ioTs.Type<A>
   return reporter(Codec.decode(res.data));
 }
 
+/**
+ * @deprecated This function is kept for old features. Please use `Validate` from `@accelbyte/sdk` instead.
+ */
 export function guardNetworkCall<ResponseDataType, ErrorType, DecodeErrorType extends Error>(
   networkCallFunction: () => Promise<AxiosResponse<ResponseDataType>>,
   Codec: ioTs.Type<ResponseDataType>,

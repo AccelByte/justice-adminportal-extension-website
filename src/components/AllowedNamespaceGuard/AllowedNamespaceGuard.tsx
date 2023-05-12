@@ -22,7 +22,7 @@ export const AllowedNamespaceGuard = ({
   const filteredNamespaces = allowedNamespaces && allowedNamespaces.filter(Boolean);
 
   if (!!filteredNamespaces && filteredNamespaces.length > 0 && !filteredNamespaces.includes(namespace)) {
-    window.parent.location.href = combinePaths(globalVar.JUSTICE_BASE_URL, "admin/error/403");
+    window.parent.location.href = combinePaths(globalVar.JUSTICE_ADMINPORTAL_URL, "/error/403");
     return null;
   }
 

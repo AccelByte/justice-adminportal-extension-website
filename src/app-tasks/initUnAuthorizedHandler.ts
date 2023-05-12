@@ -5,13 +5,15 @@
  */
 
 import axios, { AxiosError } from "axios";
-import { addGlobalRequestInterceptors, addGlobalResponseInterceptors } from "../api/networkManager";
-import { MessageType, sendMessageToParentWindow } from "../utils/iframe";
-import { sleepAsync } from "../utils/common";
-import { isInAdminPortal, withAdminPortalClient } from "../utils/adminPortalClient";
+import { sendMessageToParentWindow } from "~/utils/iframe";
+import { sleepAsync } from "~/utils/common";
+import { withAdminPortalClient } from "~/utils/adminPortalClient";
+import { MessageType } from "~/models/iframe";
+import { isInIframe } from "~/utils/browserIframeSwitch";
+import { injectRequestInterceptors, injectResponseInterceptors } from "@accelbyte/sdk";
 
 const getIsRefreshSessionLock = () => {
-  if (isInAdminPortal()) {
+  if (isInIframe()) {
     const adminPortalIsRefreshLock = withAdminPortalClient((adminPortalClient) => {
       return adminPortalClient.isRefreshSessionLock();
     });
@@ -22,7 +24,7 @@ const getIsRefreshSessionLock = () => {
 };
 
 const adminPortalRefreshWithLock = () => {
-  if (isInAdminPortal()) {
+  if (isInIframe()) {
     const adminPortalRefreshWithLock = withAdminPortalClient((adminPortalClient) => {
       return adminPortalClient.refreshWithLock();
     });
@@ -33,7 +35,7 @@ const adminPortalRefreshWithLock = () => {
 };
 
 const initOnUnAuthorizedHandler = () => {
-  addGlobalRequestInterceptors(
+  injectRequestInterceptors(
     async (config) => {
       const isRefreshSessionLock = await getIsRefreshSessionLock();
       while (isRefreshSessionLock) {
@@ -45,7 +47,7 @@ const initOnUnAuthorizedHandler = () => {
       return Promise.reject(error);
     }
   );
-  addGlobalResponseInterceptors(
+  injectResponseInterceptors(
     (response) => {
       return response;
     },
@@ -58,7 +60,7 @@ const initOnUnAuthorizedHandler = () => {
         const isUnauthorized = status && status === 401;
 
         if (isUnauthorized) {
-          if (!isInAdminPortal()) {
+          if (!isInIframe()) {
             console.error("Can't do refresh token on standalone AP extension, please manually refresh your token");
             return;
           }

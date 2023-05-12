@@ -1,17 +1,57 @@
 /*!
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021 - 2022 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
 
-@import "~bootstrap/scss/bootstrap";
-@import "variables";
-
-html, body {
+html,
+body {
   font-family: $font-family-primary;
-  background-color: $base-10;
+  background-color: $base-10 !important;
+  margin: 0;
 }
 
-body, #root {
+body,
+#root {
   height: 100vh;
+}
+
+.app {
+  &.with-sidebar {
+    display: flex;
+    height: 100%;
+    .main {
+      overflow-y: auto !important;
+      flex: 1 1 auto;
+      background-color: $base-10;
+      height: 100%;
+    }
+  }
+}
+
+.Collapsible__trigger {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+
+  &:after {
+    font-family: "feather";
+    content: "\e92e";
+    position: absolute;
+    right: 30px;
+    top: 5px;
+    font-size: $font-size-h5;
+    display: block;
+    transition: transform 300ms;
+  }
+
+  &.is-open {
+    &:after {
+      transform: rotateZ(180deg);
+    }
+  }
+
+  &.is-disabled {
+  }
 }

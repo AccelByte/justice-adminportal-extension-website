@@ -32,13 +32,16 @@ function may_url(){
 
 # Rules goes after this line
 
-must_exists "JUSTICE_BASE_URL";
 must_exists "JUSTICE_BASE_PATH";
+must_exists "JUSTICE_ADMINPORTAL_URL"
 
-must_be_url "JUSTICE_BASE_URL";
+may_url "JUSTICE_BASE_URL";
+must_be_url "JUSTICE_ADMINPORTAL_URL"
 
+may_exists "JUSTICE_BASE_URL";
 may_exists "JUSTICE_PUBLISHER_NAMESPACE";
 may_exists "JUSTICE_ADMIN_BEARER_TOKEN_DEVMODE";
+may_exists "EXTENSION_CLIENT_NAME";
 
 # Do not edit after this line
 

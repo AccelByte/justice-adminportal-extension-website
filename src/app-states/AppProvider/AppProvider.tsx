@@ -12,10 +12,11 @@ import { findParamsFromPath } from "../../utils/url";
 import { AdminUser } from "../../api/iam/models/user";
 import userSessionApi from "../../api/services/userSessionApi";
 import { LoadingIndicator } from "justice-ui-library";
+import { AdminUser as CommonUtilsAdminUser } from "justice-js-common-utils";
 
 interface AppContextType {
   app: RequestType<boolean>;
-  user: AdminUser | null;
+  user: CommonUtilsAdminUser | null;
 }
 
 const AppContext = React.createContext<AppContextType>({} as AppContextType);
@@ -61,7 +62,10 @@ export function AppProvider({ children }: { children: React.ReactNode }): JSX.El
     };
   }, []);
 
-  const getContextValue = React.useMemo((): AppContextType => ({ app, user }), [app, setApp, user, setUser]);
+  const getContextValue = React.useMemo(
+    (): AppContextType => ({ app, user: user as CommonUtilsAdminUser }),
+    [app, setApp, user, setUser]
+  );
 
   if (app.isLoading || !app.data) {
     return (

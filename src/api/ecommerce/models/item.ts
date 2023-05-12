@@ -7,6 +7,10 @@
 import * as ioTs from "io-ts";
 import { DecodeError, ResponseBodyWithPagination } from "../../types";
 
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `RegionDataItem` from `@accelbyte/sdk` instead.
+ */
 export const RegionDataItem = ioTs.intersection([
   ioTs.type({
     currencyCode: ioTs.string,
@@ -25,11 +29,20 @@ export const RegionDataItem = ioTs.intersection([
     trialPrice: ioTs.number,
   }),
 ]);
+
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `RegionDataItem` from `@accelbyte/sdk` instead.
+ */
 export type RegionDataItem = ioTs.TypeOf<typeof RegionDataItem>;
 
 export const RegionData = ioTs.record(ioTs.string, ioTs.array(RegionDataItem));
 export type RegionData = ioTs.TypeOf<typeof RegionData>;
 
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `Images` from `@accelbyte/sdk` instead.
+ */
 export const ItemImage = ioTs.intersection([
   ioTs.type({
     height: ioTs.number,
@@ -42,8 +55,17 @@ export const ItemImage = ioTs.intersection([
     caption: ioTs.string,
   }),
 ]);
+
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `Images` from `@accelbyte/sdk` instead.
+ */
 export type ItemImage = ioTs.TypeOf<typeof ItemImage>;
 
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `Localization` from `@accelbyte/sdk` instead.
+ */
 export const ItemLocalizationItem = ioTs.intersection([
   ioTs.type({
     title: ioTs.string,
@@ -53,19 +75,37 @@ export const ItemLocalizationItem = ioTs.intersection([
     longDescription: ioTs.string,
   }),
 ]);
+
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `Localization` from `@accelbyte/sdk` instead.
+ */
 export type ItemLocalizationItem = ioTs.TypeOf<typeof ItemLocalizationItem>;
 
 export const ItemLocalization = ioTs.record(ioTs.string, ItemLocalizationItem);
 export type ItemLocalization = ioTs.TypeOf<typeof ItemLocalization>;
 
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `Recurring` from `@accelbyte/sdk` instead.
+ */
 export const ItemRecurring = ioTs.type({
   cycle: ioTs.string,
   fixedFreeDays: ioTs.number,
   fixedTrialCycles: ioTs.number,
   graceDays: ioTs.number,
 });
+
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `Recurring` from `@accelbyte/sdk` instead.
+ */
 export type ItemRecurring = ioTs.TypeOf<typeof ItemRecurring>;
 
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `FullItemInfo` from `@accelbyte/sdk` instead.
+ */
 export const Item = ioTs.intersection([
   ioTs.type({
     categoryPath: ioTs.string,
@@ -105,8 +145,23 @@ export const Item = ioTs.intersection([
     seasonType: ioTs.string,
   }),
 ]);
+
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `FullItemInfo` from `@accelbyte/sdk` instead.
+ */
 export type Item = ioTs.TypeOf<typeof Item>;
+
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `FullItemPagingSlicedResult` from `@accelbyte/sdk` instead.
+ */
 export const ItemResponse = ResponseBodyWithPagination(ioTs.array(Item));
+
+/**
+ * @deprecated this is for old extension features thich still use io-ts.
+ * Please use `FullItemPagingSlicedResult` from `@accelbyte/sdk` instead.
+ */
 export type ItemResponse = ioTs.TypeOf<typeof ItemResponse>;
 
 export class ItemDecodeError extends DecodeError {}
