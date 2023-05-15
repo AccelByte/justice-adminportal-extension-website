@@ -1,24 +1,19 @@
 /*
- * Copyright (c) 2018-2019 AccelByte Inc. All Rights Reserved
+ * Copyright (c) 2018-2023 AccelByte Inc. All Rights Reserved
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
 
-import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse, AxiosError } from "axios";
+import { Network as SDKNetwork } from "@accelbyte/sdk";
+import { AxiosRequestConfig, AxiosInstance, AxiosResponse, AxiosError } from "axios";
 import { globalVar } from "../constants/env";
 import { combineWithJusticeApiUrl } from "../utils/url";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Network extends AxiosInstance {}
-
-type EjectId = number;
-
-type RequestInterceptor = (config: AxiosRequestConfig) => AxiosRequestConfig | Promise<AxiosRequestConfig>;
-type RequestErrorInterceptor = (error: AxiosError) => Promise<unknown> | unknown;
-interface RequestPairInterceptor {
-  interceptor: RequestInterceptor;
-  errorInterceptor: RequestErrorInterceptor;
-}
+/**
+ * @deprecated this type is only for old extension features.
+ * Please directly use `AxiosInstance` instead.
+ */
+export type Network = AxiosInstance;
 
 type ResponseInterceptor = (response: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>;
 type ResponseErrorInterceptor = (error: AxiosError) => Promise<unknown> | unknown;
@@ -26,73 +21,34 @@ interface ResponsePairInterceptor {
   interceptor: ResponseInterceptor;
   errorInterceptor: ResponseErrorInterceptor;
 }
+export const globalResponseInterceptors = new Map<number, ResponsePairInterceptor>();
 
-export const addGlobalRequestInterceptors = (
-  interceptor: RequestInterceptor,
-  errorInterceptor: RequestErrorInterceptor
-): EjectId => {
-  const pair = { interceptor, errorInterceptor };
-  const ejectId = axios.interceptors.request.use(interceptor, errorInterceptor);
-  globalRequestInterceptors.set(ejectId, pair);
-  return ejectId;
-};
-
-export const addGlobalResponseInterceptors = (
-  interceptor: ResponseInterceptor,
-  errorInterceptor: ResponseErrorInterceptor
-): EjectId => {
-  const pair = { interceptor, errorInterceptor };
-  const ejectId = axios.interceptors.response.use(
-    interceptor,
-    errorInterceptor
-  );
-  globalResponseInterceptors.set(ejectId, pair);
-  return ejectId;
-};
-
-const globalRequestInterceptors = new Map<EjectId, RequestPairInterceptor>();
-export const globalResponseInterceptors = new Map<EjectId, ResponsePairInterceptor>();
-
-const setupNetwork = () => {
-  addGlobalRequestInterceptors(
-    async (config: AxiosRequestConfig) => {
-      const { url } = config;
-      if (url) {
-        if (/^https?:\/\//.test(url)) {
-          config.url = url;
-        } else {
-          config.url = combineWithJusticeApiUrl(url);
-        }
-      }
-      return config;
-    },
-    (error: Error) => error
-  );
+const injectApiUrl = (config: AxiosRequestConfig) => {
+  const { url } = config;
+  if (url) {
+    if (/^https?\:\/\//.test(url)) {
+      config.url = url;
+    } else {
+      config.url = combineWithJusticeApiUrl(url);
+    }
+  }
+  return config;
 };
 
 class NetworkManager {
-  create(...configs: AxiosRequestConfig[]): Network {
-    const axiosConfig = Object.assign({}, ...configs);
-    const axiosInstance = axios.create(axiosConfig);
-    setupNetwork();
-    Array.from(globalRequestInterceptors).forEach(([, interceptorPair]) => {
-      const { interceptor, errorInterceptor } = interceptorPair;
-      axiosInstance.interceptors.request.use(interceptor, errorInterceptor);
-    });
-    Array.from(globalResponseInterceptors).forEach(([, interceptorPair]) => {
-      const { interceptor, errorInterceptor } = interceptorPair;
-      axiosInstance.interceptors.response.use(interceptor, errorInterceptor);
-    });
+  create(...configs: AxiosRequestConfig[]): AxiosInstance {
+    const axiosInstance = SDKNetwork.create(Object.assign({}, ...configs));
+    axiosInstance.interceptors.request.use(injectApiUrl);
     return axiosInstance;
   }
 
-  withBearerToken(accessToken: string, config?: AxiosRequestConfig): Network {
+  withBearerToken(accessToken: string, config?: AxiosRequestConfig): AxiosInstance {
     return this.create(config || {}, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
   }
 
-  withSessionId(config?: AxiosRequestConfig): Network {
+  withSessionId(config?: AxiosRequestConfig): AxiosInstance {
     return this.create(config || {}, {
       withCredentials: true,
     });

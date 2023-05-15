@@ -2,10 +2,10 @@
 # This is licensed software from AccelByte Inc, for limitations
 # and restrictions contact your company contract manager.
 
-FROM accelbyte/node:12-alpine
+FROM accelbyte/node:16-alpine
 
 RUN apk update && \
-    apk add --no-cache --virtual g++ make python2 && \
+    apk add --no-cache --virtual .build-deps build-base python3 && \
     apk add yarn bash git openssh
 
 RUN mkdir -p /root/.ssh; \

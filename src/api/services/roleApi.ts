@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021-2023 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
@@ -10,7 +10,7 @@ import { NamespaceRole, NamespaceRoleWithPermission, Role, RolePermission, RoleW
 import { AdminUser } from "../iam/models/user";
 import namespaceApi from "./namespaceApi";
 import { Namespace } from "../basic/models/namespace";
-import { replacePermissionNamespace, WILDCARD_SIGN } from "justice-js-common-utils";
+import { replacePermissionNamespace, WILDCARD_SIGN } from "@accelbyte/validator";
 
 export class RoleApi {
   getRoles = async (): Promise<RoleWithManager[]> => {

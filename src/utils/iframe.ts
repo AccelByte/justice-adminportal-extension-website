@@ -1,47 +1,18 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021 - 2022 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
 
-import { Enum } from "../api/types";
-import * as H from "history";
-import { ToastNotificationProps } from "./notification";
 import { isInIframe } from "./browserIframeSwitch";
+import { onAdminMessageReceived } from "~/utils/postMessageHandler";
+import { CallBackType, MessageType, SendMessageEvent } from "~/models/iframe";
+import { z } from "zod";
+import { useParams } from "react-router-dom";
 
-export const MessageType = Enum("locationChange", "notification", "sessionExpired", "downloadFile");
 const DEFAULT_CHANNEL = "admin-extension";
 const DEFAULT_ORIGIN = "*";
-
-interface NotificationMessage {
-  messageType: typeof MessageType.notification;
-  data: ToastNotificationProps;
-}
-
-interface LocationChangeMessage {
-  messageType: typeof MessageType.locationChange;
-  data: H.Location<unknown>;
-}
-
-interface sessionExpiredMessage {
-  messageType: typeof MessageType.sessionExpired;
-}
-
-interface downloadFileMessage {
-  messageType: typeof MessageType.downloadFile;
-  data: {
-    fileBlob: Blob;
-    fileName: string;
-  };
-}
-
-export type Message = NotificationMessage | LocationChangeMessage | sessionExpiredMessage | downloadFileMessage;
-
-interface SendMessageEvent {
-  channel?: string;
-  message: Message;
-  origin?: string;
-}
+const ADMIN_CHANNEL_ID = "admin";
 
 export function sendMessageToParentWindow({
   message,
@@ -66,3 +37,62 @@ export function downloadFile({ fileBlob, fileName }: { fileBlob: Blob; fileName:
     },
   });
 }
+
+export async function guardSendAndReceiveMessage<MessageDataType>({
+  messageToBeSent,
+  timeoutMs = 2000,
+  Codec,
+}: {
+  messageToBeSent: SendMessageEvent;
+  timeoutMs?: number;
+  Codec: z.ZodType<MessageDataType>;
+}): Promise<MessageDataType> {
+  let dataFromParent: any = null;
+  const callback = (data: any) => {
+    dataFromParent = data;
+  };
+
+  sendMessageToParentWindow(messageToBeSent);
+  await guardListenMessage({ callback, timeoutMs, Codec });
+
+  return new Promise((resolve) => resolve(dataFromParent));
+}
+
+async function guardListenMessage<MessageDataType>({
+  callback,
+  timeoutMs,
+  Codec,
+}: {
+  callback: CallBackType;
+  timeoutMs: number;
+  Codec: z.ZodType<MessageDataType>;
+}) {
+  const addAndRemoveListener = new Promise((resolve) => {
+    let timeout: any = null;
+    const handleMessage = (message: MessageEvent) => {
+      onAdminMessageReceived(message, callback, { adminChannelId: ADMIN_CHANNEL_ID }, Codec);
+      // if message recived, remove listener and resolve timeout
+      window.removeEventListener("message", handleMessage, false);
+      resolve(timeout);
+    };
+
+    window.addEventListener("message", handleMessage, false);
+
+    // if no message received after timeout, remove listener and resolve the promise
+    timeout = setTimeout(() => {
+      window.removeEventListener("message", handleMessage, false);
+      resolve(null);
+    }, timeoutMs);
+  });
+
+  const timeout: any = await addAndRemoveListener;
+  // if resolved but timeout still exist then clear timeout
+  if (timeout) clearTimeout(timeout);
+}
+
+export const useExtensionPrefix = () => {
+  const { namespace } = useParams<{ namespace: string }>();
+  const withPrefixUrl = (path: string) => `/namespaces/${namespace}${path}`;
+  const withPrefixPath = (path: string) => `/namespaces/:namespace${path}`;
+  return { withPrefixUrl, withPrefixPath };
+};

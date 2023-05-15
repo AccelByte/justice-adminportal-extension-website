@@ -7,11 +7,11 @@
 import React from "react";
 import { PermissionGuard } from "justice-js-common-utils";
 import { Card, ErrorWrapper, Page } from "justice-ui-library";
-import { useAppContext } from "../../../../app-states/AppProvider/AppProvider";
+import { useAppContext } from "~/app-states/AppProvider/AppProvider";
 import { useParams } from "react-router-dom";
-import { adminCanReadUser } from "../../../../components/PermissionGuard";
+import { adminCanReadUser } from "~/components/PermissionGuard";
 import UserInfo from "../components/UserInfo";
-import { t } from "../../../../utils/i18n/i18n";
+import { t } from "~/utils/i18n/i18n";
 
 export const ExamplePage = () => {
   const { user } = useAppContext();

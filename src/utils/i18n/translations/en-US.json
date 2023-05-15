@@ -1,7 +1,22 @@
 {
+  "nav.group.extension": "Custom Features",
+  "namespaces.namespace": "Namespace",
   "common.action": "Action",
   "common.error.401.title": "Unauthorized Access",
   "common.error.401.subTitle": "You don't have access to this page",
+  "common.validationErrorMessage.empty": "{{ fieldName }} is required.",
+  "common.validationErrorMessage.lessThanLengthLimit": "Use {{ minLength }} characters or more for {{ fieldName }}",
+  "common.validationErrorMessage.exceedLengthLimit": "Use {{ maxLength }} characters or less for {{ fieldName }}",
+  "common.validationErrorMessage.invalidFormat": "Please provide a valid {{ fieldName }} format.",
+  "common.validationErrorMessage.lessThanMinimumValue": "The value for {{ fieldName }} cannot be less than {{ min }}",
+  "common.validationErrorMessage.exceedMaximumValue": "The value for {{ fieldName }} cannot exceed the limitation ({{ max }})",
+  "common.validationErrorMessage.invalidValue": "The value format for {{ fieldName }} is invalid.",
+  "common.validationErrorMessage.invalidFileExtensions": "Only {{ acceptedFileExtension }} files are allowed",
+  "common.validationErrorMessage.containsDecimal": "Decimal numbers are not allowed.",
+  "common.validationErrorMessage.default": "Unable to validate input, please contact customer service",
+  "common.validationErrorMessage.alreadyUsed": "The {{ fieldName }} is already used. Try to input a new {{ fieldName }}",
+  "common.validationErrorMessage.containsForbiddenWords": "{{ fieldName }} contains prohibited word",
+  "common.validationErrorMessage.containsForbiddenWords.email": "Email contains prohibited word or use blocked domain",
   "error.general.title": "Oops...",
   "error.general.subtitle": "Looks like something went wrong.\n Please reload the page or contact System Administrator.",
   "module.example.title": "Example Module",
@@ -23,5 +38,6 @@
   "example.module.subModule2.itemsPage.items.title": "Items",
   "example.module.subModule2.itemsPage.items.id": "ID",
   "example.module.subModule2.itemsPage.items.name": "Name",
-  "example.module.subModule2.itemsPage.items.itemType": "Item Type"
+  "example.module.subModule2.itemsPage.items.itemType": "Item Type",
+  "loading.wait": "Please wait..."
 }

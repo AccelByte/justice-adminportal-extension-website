@@ -32,7 +32,9 @@ function setLocalStorageLanguage(language: string) {
   localStorage.setItem(languageLocalStorageKey, language);
 }
 
-export const i18nInstance = i18next.use(initReactI18next).createInstance(
+export const i18nInstance = i18next.use(initReactI18next);
+
+i18nInstance.init(
   {
     lng: getLocalStorageLanguage(),
     fallbackLng: config.fallbackLanguage,
@@ -40,6 +42,7 @@ export const i18nInstance = i18next.use(initReactI18next).createInstance(
     resources: translationResource,
     initImmediate: false,
     debug: process.env.NODE_ENV === "development",
+    interpolation: { escapeValue: false },
   },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   () => {}

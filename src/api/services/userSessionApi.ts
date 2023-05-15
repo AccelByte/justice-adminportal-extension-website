@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021-2023 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
@@ -18,7 +18,7 @@ import {
   getCurrentUserRoles,
   getRoleIdsByNamespace,
   isUserHasAdminRole,
-} from "justice-js-common-utils";
+} from "@accelbyte/validator";
 
 export const PERSIST_USER_DATA_KEY = "user";
 
@@ -67,7 +67,7 @@ class UserSessionApi {
     try {
       const user = await userApi.getCurrentUser();
 
-      return user.userId !== this.getUserData().userId || user.namespaceRoles !== this.getUserData().namespaceRoles;
+      return user.userId !== this.getUserData()?.userId || user.namespaceRoles !== this.getUserData()?.namespaceRoles;
     } catch (error) {
       return true;
     }
@@ -77,7 +77,7 @@ class UserSessionApi {
     extendedStorage(true).localStorage.setObject(PERSIST_USER_DATA_KEY, user);
   };
 
-  getUserData = () => {
+  getUserData = (): AdminUser | null => {
     try {
       const data = extendedStorage(true).localStorage.getObject(PERSIST_USER_DATA_KEY);
       return data;

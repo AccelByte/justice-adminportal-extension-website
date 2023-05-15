@@ -4,17 +4,40 @@
  * and restrictions contact your company contract manager.
  */
 
+import { guardSendAndReceiveMessage } from "~/utils/iframe";
+import { MessageType } from "~/models/iframe";
+import { IsRefreshSessionLock, RefreshWithLock } from "~/models/parentMessage";
+
 export interface AdminPortalClient {
   isRefreshSessionLock(): Promise<boolean>;
   refreshWithLock(): () => Promise<boolean>;
 }
 
-export const getAdminPortalClient = () => {
-  return window && ((window.top as any).JusticeAdminPortalClient as AdminPortalClient | undefined);
+export const getAdminPortalClient = (): AdminPortalClient | undefined => {
+  return {
+    isRefreshSessionLock: isRefreshSessionLockPostMessage,
+    refreshWithLock: () => refreshWithLockPostMessage,
+  };
 };
 
-export const isInAdminPortal = () => {
-  return !!getAdminPortalClient();
+const isRefreshSessionLockPostMessage = async (): Promise<boolean> => {
+  const isRefreshSessionLockResult = await guardSendAndReceiveMessage<boolean>({
+    messageToBeSent: { message: { messageType: MessageType.isRefreshSessionLock } },
+    timeoutMs: 1000,
+    Codec: IsRefreshSessionLock,
+  });
+
+  return new Promise<boolean>((resolve) => resolve(isRefreshSessionLockResult));
+};
+
+const refreshWithLockPostMessage = async (): Promise<boolean> => {
+  const refreshWithLockResult = await guardSendAndReceiveMessage<boolean>({
+    messageToBeSent: { message: { messageType: MessageType.refreshWithLock } },
+    timeoutMs: 1000,
+    Codec: RefreshWithLock,
+  });
+
+  return new Promise<boolean>((resolve) => resolve(refreshWithLockResult));
 };
 
 export const withAdminPortalClient = <T>(func: (adminPortalClient: AdminPortalClient) => T | null): T | null => {

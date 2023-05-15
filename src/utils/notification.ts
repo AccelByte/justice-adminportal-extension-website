@@ -4,13 +4,14 @@
  * and restrictions contact your company contract manager.
  */
 
-import { MessageType, sendMessageToParentWindow } from "./iframe";
-import { isAxiosNetworkError, isAxiosServerError } from "../api/errorDeducer";
+import { sendMessageToParentWindow } from "./iframe";
+import { isAxiosNetworkError, isAxiosServerError } from "~/api/errorDeducer";
 import { t } from "./i18n/i18n";
 import { translateServiceErrorForAdmin } from "justice-js-common-utils";
-import { extractServiceErrorCode } from "../api/serviceErrorDeducer";
+import { extractServiceErrorCode } from "~/api/serviceErrorDeducer";
 import ReactDomServer from "react-dom/server";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
+import { MessageType } from "~/models/iframe";
 
 export enum ToastType {
   success = "success",
@@ -21,9 +22,9 @@ export enum ToastType {
 
 export interface ToastNotificationProps {
   appearance: ToastType;
-  message: string;
+  message: ReactNode;
   errorCode?: number;
-  defaultErrorMessage?: string;
+  defaultErrorMessage?: ReactNode;
 }
 
 export const showToastNotification = (data: ToastNotificationProps) => {
@@ -32,6 +33,8 @@ export const showToastNotification = (data: ToastNotificationProps) => {
   const notificationData: ToastNotificationProps = {
     appearance: data.appearance,
     message: stringMessage,
+    errorCode: data.errorCode,
+    defaultErrorMessage: data.defaultErrorMessage,
   };
 
   sendMessageToParentWindow({
@@ -39,7 +42,7 @@ export const showToastNotification = (data: ToastNotificationProps) => {
   });
 };
 
-export function showToastNotificationError(error: Error, defaultMessage?: string) {
+export function showToastNotificationError(error: Error, defaultMessage?: ReactNode) {
   if (isAxiosNetworkError(error)) {
     return showToastNotification({ message: t("network.error.noNetwork"), appearance: ToastType.error });
   }
@@ -49,17 +52,16 @@ export function showToastNotificationError(error: Error, defaultMessage?: string
 
   return showToastNotification({
     appearance: ToastType.error,
-    message: "",
+    message: translateError(error, defaultMessage),
     errorCode: extractServiceErrorCode(error) || 0,
-    defaultErrorMessage: defaultMessage,
   });
 }
 
-export function showToastNotificationSuccess(message: string) {
+export function showToastNotificationSuccess(message: ReactNode) {
   return showToastNotification({ message, appearance: ToastType.success });
 }
 
-export const translateError = (error: Error, defaultMessage?: string) => {
+export const translateError = (error: Error, defaultMessage?: ReactNode) => {
   if (isAxiosNetworkError(error)) {
     return t("network.error.noNetwork");
   }

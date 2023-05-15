@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: justice-adminportal-extension-website
+  description: Justice Admin Portal Extension Website is a web application that extends Admin Portal functionality, mainly to fulfill client's needs that not included in Admin Portal.
+  tags:
+    - javascript
+    - typescript
+    - frontend
+spec:
+  owner: core-web
+  type: service
+  lifecycle: production

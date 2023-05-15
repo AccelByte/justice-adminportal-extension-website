@@ -1,0 +1,247 @@
+/*
+ * Copyright (c) 2022 AccelByte Inc. All Rights Reserved.
+ * This is licensed software from AccelByte Inc, for limitations
+ * and restrictions contact your company contract manager.
+ */
+
+.nav-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 300px;
+  z-index: 1;
+  background-color: $sidebar-backgroundColor--primary;
+  max-width: 300px;
+  &.gameNamespace {
+    .namespace-selector {
+      .react-select__control {
+        background-color: $sidebar-backgroundColor--hovered--primary;
+        &.react-select__control--isFocused {
+          svg {
+            color: $sidebar-backgroundColor--active--secondary;
+          }
+        }
+      }
+      &.disabled {
+        &:hover {
+          background-color: $sidebar-backgroundColor--secondary;
+          .react-select__control {
+            background-color: $sidebar-backgroundColor--secondary;
+          }
+        }
+        .react-select__control {
+          .react-select__single-value,
+          svg {
+            color: $sidebar-backgroundColor--active--secondary;
+          }
+        }
+      }
+    }
+    .simplebar-track {
+      .simplebar-scrollbar:before {
+        background: $sidebar-color--link--secondary;
+      }
+    }
+    .links a {
+      color: $sidebar-color--link--secondary;
+    }
+  }
+  .namespace-selector {
+    width: 100%;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    align-items: center;
+    .simplebar-track {
+      background: none;
+    }
+    .title {
+      color: $sidebar-color--link--secondary;
+      font-size: 12px;
+      margin-top: 16px;
+    }
+    &:hover {
+      .react-select__control {
+        background-color: $color--text--primary;
+      }
+    }
+  }
+  .simplebar-track {
+    background: $sidebar-backgroundColor--scrollbar;
+    -webkit-border-radius: 2.5px;
+    -moz-border-radius: 2.5px;
+    border-radius: 2.5px;
+    .simplebar-scrollbar:before {
+      background: $sidebar-color--link--primary;
+    }
+  }
+  .links.nav-links {
+    .nav-sub-link {
+      font-size: $font-size-h5;
+      color: $base-60;
+      > span {
+        margin-left: 48px;
+        display: block;
+      }
+      &.active {
+        color: $base-10;
+      }
+      .menu-item-container {
+        > span {
+          margin-left: 0;
+        }
+      }
+    }
+    .nav-tab {
+      margin-bottom: 10px;
+      &:not(:last-child) {
+        padding-bottom: 10px;
+        border-bottom: 1px solid $base-110;
+      }
+    }
+  }
+  .nav-menu-group {
+    &.lock .Collapsible__trigger:after {
+      display: none;
+    }
+    &.unlocked .Collapsible__trigger:after {
+      top: 15px;
+    }
+    .menu-item span {
+      margin-left: 48px;
+    }
+  }
+  .links a,
+  .nav-link-a {
+    height: 40px;
+    color: $sidebar-color--link--primary;
+    font-size: $font-size-h5;
+    line-height: 40px;
+    font-weight: 400;
+    padding: 0 20px;
+    position: relative;
+    display: block;
+    &.active {
+      background-color: $sidebar-backgroundColor--active--primary;
+      color: $sidebar-color--text;
+      .early-access-text {
+        color: $sidebar-color--text;
+      }
+    }
+    &:hover {
+      background-color: $sidebar-backgroundColor--hovered--primary;
+      text-decoration: none;
+    }
+    i[class^="icon"] {
+      font-size: $font-size-h3;
+      vertical-align: middle;
+    }
+    i:nth-child(2) {
+      font-size: $font-size-h5;
+      vertical-align: middle;
+    }
+    .icon-lock::before {
+      position: absolute;
+      right: 20px;
+      top: 12px;
+      bottom: 18px;
+    }
+  }
+  .menu-item {
+    > span {
+      display: block;
+    }
+  }
+  .menu-item-container {
+    display: block;
+    align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    > span {
+      white-space: nowrap;
+      margin-left: 13px;
+      vertical-align: middle;
+    }
+
+    .sidebar-item-menu-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      div {
+        > span {
+          white-space: nowrap;
+          margin-left: 13px;
+          vertical-align: middle;
+        }
+      }
+
+      .early-access-text {
+        color: $semantic-yellow-80;
+        font-size: 0.625rem;
+      }
+    }
+  }
+  .Collapsible__trigger {
+    display: block;
+    > span {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      padding: 0 50px 0 20px;
+      line-height: 1.1;
+
+      &.collapsible-child {
+        padding: 0;
+        > .menu-item-container {
+          padding-right: 50px;
+          width: 100%;
+          > span {
+            margin-left: 13px;
+          }
+        }
+      }
+    }
+    .menu-item-container {
+      > span:not(.collapsible-child) {
+        margin-left: 0;
+      }
+    }
+  }
+  .nav-tab {
+    font-size: $font-size-h5;
+    line-height: 13px;
+    color: $sidebar-header-color--primary;
+    font-weight: 500;
+    > .Collapsible__trigger:after {
+      right: 34px;
+      top: 17px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid $base-50;
+      content: "";
+      position: absolute;
+    }
+    > span {
+      min-height: 0;
+      &:hover {
+        background-color: $sidebar-backgroundColor--hovered--primary;
+      }
+      &:after {
+        top: 8px;
+      }
+    }
+  }
+}
+
+.styled-atlaskit-select__control {
+  &:not(:hover) {
+    .styled-atlaskit-select__placeholder,
+    .styled-atlaskit-select__value-container div,
+    .styled-atlaskit-select div.styled-atlaskit-select__option {
+      color: white;
+    }
+  }
+}

@@ -1,56 +1,58 @@
 /*
- * Copyright (c) 2021 AccelByte Inc. All Rights Reserved.
+ * Copyright (c) 2021-2023 AccelByte Inc. All Rights Reserved.
  * This is licensed software from AccelByte Inc, for limitations
  * and restrictions contact your company contract manager.
  */
 
-import * as ioTs from "io-ts";
-import { DecodeError, ResponseBodyWithPagination } from "../../types";
+import { z } from "zod";
+import { DecodeError, ZodResponseBodyWithPagination } from "../../types";
 
-export const RoleUser = ioTs.type({
-  displayName: ioTs.string,
-  namespace: ioTs.string,
-  userId: ioTs.string,
+export const RoleUser = z.object({
+  displayName: z.string(),
+  namespace: z.string(),
+  userId: z.string(),
 });
 
-export const RolePermission = ioTs.intersection([
-  ioTs.type({
-    resource: ioTs.string,
-    action: ioTs.number,
+export const RolePermission = z.intersection(
+  z.object({
+    resource: z.string(),
+    action: z.number(),
   }),
-  ioTs.partial({
-    schedAction: ioTs.number,
-    schedCron: ioTs.string,
-    schedRange: ioTs.array(ioTs.string),
-  }),
-]);
-export type RolePermission = ioTs.TypeOf<typeof RolePermission>;
+  z
+    .object({
+      schedAction: z.number(),
+      schedCron: z.string(),
+      schedRange: z.array(z.string()),
+    })
+    .partial()
+);
+export type RolePermission = z.TypeOf<typeof RolePermission>;
 
-export const Role = ioTs.type({
-  permissions: ioTs.array(RolePermission),
-  roleId: ioTs.string,
-  roleName: ioTs.string,
-  isWildcard: ioTs.boolean,
-  adminRole: ioTs.boolean,
+export const Role = z.object({
+  permissions: z.array(RolePermission),
+  roleId: z.string(),
+  roleName: z.string(),
+  isWildcard: z.boolean(),
+  adminRole: z.boolean(),
 });
-export type Role = ioTs.TypeOf<typeof Role>;
+export type Role = z.TypeOf<typeof Role>;
 
-const RoleWithManager = ioTs.intersection([
+const RoleWithManager = z.intersection(
   Role,
-  ioTs.type({
-    managers: ioTs.array(RoleUser),
-  }),
-]);
-export type RoleWithManager = ioTs.TypeOf<typeof RoleWithManager>;
+  z.object({
+    managers: z.array(RoleUser),
+  })
+);
+export type RoleWithManager = z.TypeOf<typeof RoleWithManager>;
 
-export const RoleWithManagersResponse = ResponseBodyWithPagination(ioTs.array(RoleWithManager));
-export type RoleWithManagersResponse = ioTs.TypeOf<typeof RoleWithManagersResponse>;
+export const RoleWithManagersResponse = ZodResponseBodyWithPagination(z.array(RoleWithManager));
+export type RoleWithManagersResponse = z.TypeOf<typeof RoleWithManagersResponse>;
 
-export const NamespaceRole = ioTs.type({
-  roleId: ioTs.string,
-  namespace: ioTs.string,
+export const NamespaceRole = z.object({
+  roleId: z.string(),
+  namespace: z.string(),
 });
-export type NamespaceRole = ioTs.TypeOf<typeof NamespaceRole>;
+export type NamespaceRole = z.TypeOf<typeof NamespaceRole>;
 
 export interface NamespaceRoleWithPermission extends NamespaceRole {
   permissions: RolePermission[];
